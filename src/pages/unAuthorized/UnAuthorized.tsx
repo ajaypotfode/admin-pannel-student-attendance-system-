@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function UnauthorizedPage() {
   return (
@@ -12,6 +14,9 @@ export default function UnauthorizedPage() {
         <p className="text-slate-400">
           Only <span className="text-red-400 font-semibold">Admin</span> can access this section.
         </p>
+       <Button className="p-3 text-sm border mt-2">
+         <Link to='/auth/login' className="">Go To Login</Link>
+       </Button>
       </div>
     </div>
   );

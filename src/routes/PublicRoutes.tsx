@@ -4,15 +4,15 @@ import { useAppSelector } from "@/redux/reduxHook";
 import { Navigate, Outlet } from "react-router-dom";
 
 const PublicRoutes = () => {
-    const { isUserLogin, isUserLoading } = useAppSelector(state => state.auth);
+    const { isUserLogin, isUserLoading, user } = useAppSelector(state => state.auth);
 
 
-  if (isUserLoading) {
+    if (isUserLoading) {
         return <LoadingPage />
     }
-    
 
-    if (isUserLogin === true) {
+
+    if (isUserLogin === true && !user) {
         // console.log("login user true");
         return <Navigate to="/dashboard" replace />;
     }
