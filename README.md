@@ -67,3 +67,23 @@ export default tseslint.config([
   },
 ])
 ```
+
+
+
+
+
+<!-- Deployement On Vercel  -->
+1.have To Create vercel.json file 
+<!--
+{  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+    }
+  ] -->
+
+In production (on Vercel, Netlify, etc.), the server does not know about React Router routes.
+
+If you go to /, the server finds index.html → ✅ works.
+
+If you refresh /dashboard, the server looks for a file at /dashboard/index.html → ❌ file not found → 404 error.
+
+This rewrite ensures React + Vite SPA routes work after refresh. Without it, refreshing /dashboard or any nested route would give a 404.",
