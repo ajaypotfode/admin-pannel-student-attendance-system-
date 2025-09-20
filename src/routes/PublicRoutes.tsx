@@ -13,7 +13,7 @@ const PublicRoutes = () => {
     
 
     if (isUserLogin === true) {
-        console.log("login user true");
+        // console.log("login user true");
         return <Navigate to="/dashboard" replace />;
     }
 

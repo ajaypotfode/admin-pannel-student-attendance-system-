@@ -19,15 +19,15 @@ import ProtectedRoutes from './ProtectedRoutes'
 import StudentRegistration from '@/pages/setting/StudentRegistration'
 import RegistrationForm from '@/pages/students/RegistrationForm'
 import PublicRoutes from './PublicRoutes'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 // import ProtectedRoutes from './ProtectedRoutes'
 
 
 const AppRoutes = () => {
-  useEffect(() => {
-    console.log("app routes page Is Redirecting");
+  // useEffect(() => {
+  //   console.log("app routes page Is Redirecting");
 
-  }, [])
+  // }, [])
   return (
 
 
