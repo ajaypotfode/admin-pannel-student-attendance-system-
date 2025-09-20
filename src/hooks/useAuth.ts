@@ -58,7 +58,11 @@ const UseAuth = () => {
 
 
     const getUserLogout = async () => {
-        dispatch(logoutUser())
+        const response = await dispatch(logoutUser()).unwrap();
+
+        if (response.success) {
+            window.location.href = '/auth/login'
+        }
     }
 
     return {

@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 function App() {
-  // this is use for Protected Roy=utes To Get User Logged In or Not
+  // this is use for Protected Routes To Get User Logged In or Not
   const dispatch = useAppDispatch();
   // const { isUserLoading } = useAppSelector(state => state.auth)
 
