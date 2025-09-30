@@ -1,5 +1,5 @@
 import LoadingPage from "@/pages/loadingPage/Loading";
-import UnauthorizedPage from "@/pages/unAuthorized/UnAuthorized";
+// import UnauthorizedPage from "@/pages/unAuthorized/UnAuthorized";
 import { useAppSelector } from "@/redux/reduxHook";
 
 import { Navigate, Outlet } from "react-router-dom";
@@ -22,7 +22,7 @@ const ProtectedRoutes = () => {
     }
 
     if (user?.role !== 'admin' || user?.status !== 'active') {
-        return <UnauthorizedPage />
+        return <Navigate to='/unauthorized' replace />
     }
 
     return <Outlet />;

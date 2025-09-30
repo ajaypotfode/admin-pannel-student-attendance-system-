@@ -19,6 +19,7 @@ import ProtectedRoutes from './ProtectedRoutes'
 import StudentRegistration from '@/pages/setting/StudentRegistration'
 import RegistrationForm from '@/pages/students/RegistrationForm'
 import PublicRoutes from './PublicRoutes'
+import UnauthorizedPage from '@/pages/unAuthorized/UnAuthorized'
 // import { useEffect } from 'react'
 // import ProtectedRoutes from './ProtectedRoutes'
 
@@ -38,6 +39,7 @@ const AppRoutes = () => {
         <Route path='/auth/signup' element={<Signup />} />
       </Route>
       <Route path='/student/register' element={<RegistrationForm />} />
+      <Route path='/unauthorized' element={<UnauthorizedPage/>}/>
       <Route element={<ProtectedRoutes />}>
         <Route element={<CommonLayout />}>
           <Route path='/' element={<Navigate to='/dashboard' />} />

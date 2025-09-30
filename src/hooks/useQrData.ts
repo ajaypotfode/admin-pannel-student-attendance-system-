@@ -12,8 +12,8 @@ const UseQrData = () => {
     //     dispatch(setClassDetails(classData))
     // }
 
-    const getQrVerify = (qrData: string) => {
-        dispatch(qrVerify(qrData))
+    const getQrVerify = (qrdata: string) => {
+        dispatch(qrVerify({ qrdata, classId: currentQrClass }))
     }
 
     const addAttendenceSummary = (classId: string) => {

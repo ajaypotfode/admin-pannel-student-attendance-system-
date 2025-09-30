@@ -4,12 +4,12 @@ import type { CommonResponse, QrInitialState, QrVerifyResponse } from '@/types/Q
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { AxiosError } from 'axios'
 
-export const qrVerify = createAsyncThunk<QrVerifyResponse, string, { rejectValue: string }>(
+export const qrVerify = createAsyncThunk<QrVerifyResponse, { qrdata: string, classId: string }, { rejectValue: string }>(
     'qrVerify',
-    async (qrData, { rejectWithValue }
+    async (verifyQrData, { rejectWithValue }
     ) => {
         try {
-            const response = await verifyQrAPI(qrData)
+            const response = await verifyQrAPI(verifyQrData)
 
             if (!response.success) {
                 return rejectWithValue(response.message)
@@ -47,7 +47,7 @@ export const handleAttendenceSummary = createAsyncThunk<CommonResponse, string, 
 const initialState: QrInitialState = {
     studentData: null,
     attendence: null,
-    currentQrClass: null
+    currentQrClass:''
     // currentClass: null
     // openQr: false
 

@@ -2,8 +2,8 @@ import type { CommonResponse, QrVerifyResponse } from "@/types/QrType";
 import axios from "axios";
 // import token from "./tokenService";
 
-export const verifyQrAPI = async (qrdata: string): Promise<QrVerifyResponse> => {
-    const data = JSON.stringify({ qrdata })
+export const verifyQrAPI = async (qrVerifydata:{qrdata:string,classId:string}): Promise<QrVerifyResponse> => {
+    const data = JSON.stringify(qrVerifydata)
 
     try {
         const response = await axios.post<QrVerifyResponse>(

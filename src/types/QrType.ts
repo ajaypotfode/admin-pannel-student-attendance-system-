@@ -65,6 +65,6 @@ export interface QrVerifyResponse extends CommonResponse {
 export interface QrInitialState {
     studentData: Students | null;
     attendence: Attendence | null;
-    currentQrClass: null | string;
+    currentQrClass: string;
     // currentClass: string | null
 }

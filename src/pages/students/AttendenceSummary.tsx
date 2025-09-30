@@ -73,7 +73,7 @@ const AttendenceSummary = () => {
                             <span className='text-red-700'>{attendenceSummary?.totalClass?.absence}</span>
                             )
                         </div>
-                        <div className='absolute bottom-0 right-0  '>
+                        <div className='absolute bottom-0 right-8  '>
                             <PaginationComponent
                                 pageNum={pages['getAttendenceSummary']?.pageNum || 0}
                                 totalPage={pages['getAttendenceSummary']?.totalPages || 0}
