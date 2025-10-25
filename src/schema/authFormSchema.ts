@@ -50,5 +50,13 @@ export const registerFormSchema = z.object({
 })
 
 
+
+export const adminTokenSchema = z.object({
+    adminToken: z
+        .string()
+        .nonempty('Admin Token Required')
+})
+
 export type LoginFormType = z.infer<typeof LoginFormSchema>
 export type RegisterFormType = z.infer<typeof registerFormSchema>
+export type AdminTokenFormType = z.infer<typeof adminTokenSchema>

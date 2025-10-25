@@ -4,7 +4,8 @@ export type UserData = {
     email: string
     image: string
     password: string
-    contactNo: string
+    contactNo: string,
+    adminToken?: null | string
 
 }
 
@@ -25,7 +26,7 @@ export interface SignupResponse extends CommonResponse {
         role: string,
         userName: string,
         email: string,
-        status?:string
+        status?: string
         image: string,
         contactNo: string,
         _id: string,
@@ -53,6 +54,12 @@ export interface IsLoginUserResponse extends CommonResponse {
     }
 }
 
+export interface AdminTokenVerifyResponse {
+    success: boolean;
+    message: string;
+    token?: string
+}
+
 
 // export interface RegistrationResponse extends CommonResponse{
 //     result:{
@@ -65,7 +72,8 @@ export interface InitialStateType {
     // signupData: UserData;
     // loginData: LoginData;
     isUserLogin: boolean | undefined;
-    isUserLoading:boolean
+    isUserLoading: boolean;
+    verifyAdminToken: string | null | undefined;
     // role: string
     user: {
         role: string,

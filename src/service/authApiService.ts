@@ -1,4 +1,4 @@
-import type { CommonResponse, IsLoginUserResponse, LoginData, LoginResponse, SignupResponse, UserData } from '@/types/AuthType';
+import type { AdminTokenVerifyResponse, CommonResponse, IsLoginUserResponse, LoginData, LoginResponse, SignupResponse, UserData } from '@/types/AuthType';
 import axios from 'axios'
 
 // this is written for my reference
@@ -11,6 +11,33 @@ import axios from 'axios'
 
 // const response = await api.post('/add', data)
 // const demo = await api.get('/get', { params })
+
+export const adminTokenVerifyAPI = async (adminToken: string): Promise<AdminTokenVerifyResponse> => {
+
+    const data = JSON.stringify({ adminToken });
+
+    try {
+        // const response = await axios.request<SignupResponse>(config)
+        const response = await axios.post<AdminTokenVerifyResponse>(
+            `${import.meta.env.VITE_BASE_URL}/auth/verify-admin`,
+            data,
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error);
+        throw error
+
+    }
+}
+
+
 
 
 export const createUserAPI = async (userData: UserData): Promise<SignupResponse> => {
@@ -30,10 +57,10 @@ export const createUserAPI = async (userData: UserData): Promise<SignupResponse>
     try {
         // const response = await axios.request<SignupResponse>(config)
         const response = await axios.post<SignupResponse>(
-            `${import.meta.env.VITE_BASE_URL}/auth/add`,
+            `${import.meta.env.VITE_BASE_URL}/auth/signup`,
             data,
             {
-                withCredentials: true,
+                // withCredentials: true,
                 headers: {
                     'Content-Type': "application/json"
                 }
@@ -85,7 +112,7 @@ export const loginUserAPI = async (loginData: LoginData): Promise<LoginResponse>
             `${import.meta.env.VITE_BASE_URL}/auth/login`,
             data,
             {
-                withCredentials: true,
+                // withCredentials: true,
                 headers: {
                     'Content-Type': "application/json"
                 }

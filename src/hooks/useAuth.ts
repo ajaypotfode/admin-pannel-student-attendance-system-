@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHook"
-import { loginUser, logoutUser, signupUser, studentRegistration } from "@/redux/slice/authSlice"
+import { adminVerifyToken, loginUser, logoutUser, signupUser, studentRegistration } from "@/redux/slice/authSlice"
 import { type LoginFormType, type RegisterFormType } from '../schema/authFormSchema'
 import { toast } from "react-toastify"
 import { useRef } from "react"
@@ -8,7 +8,7 @@ import { useRef } from "react"
 
 const UseAuth = () => {
 
-    const { user } = useAppSelector(state => state.auth)
+    const { user, verifyAdminToken } = useAppSelector(state => state.auth)
     const imageRef: React.RefObject<HTMLInputElement | null> = useRef(null)
     const dispatch = useAppDispatch()
 
@@ -24,15 +24,24 @@ const UseAuth = () => {
     }
 
 
-    const getUserRegister = async (data: RegisterFormType, reset: () => void, role: string) => {
+    const getAdminTokenVerify = async (adminToken: string, reset: () => void) => {
+        const response = await dispatch(adminVerifyToken(adminToken)).unwrap()
+        if (response?.success) {
+            reset()
+        }
+
+    }
+
+
+    const getUserRegister = async (data: RegisterFormType, reset: () => void, role: string, token: string | null) => {
         // const response = await dispatch(signupUser({ ...data, role})).unwrap();
 
         // "/image.jpg" is sending only For Testing Purpose
         let response
         if (role !== 'student') {
-            response = await dispatch(signupUser({ ...data, role, image: '/image.jpg' })).unwrap();
+            response = await dispatch(signupUser({ ...data, role, adminToken: token, image: '/image.jpg', })).unwrap();
         }
-        else response = await dispatch(studentRegistration({ ...data, role, image: '/image.jpg' })).unwrap();
+        else response = await dispatch(studentRegistration({ ...data, role, adminToken: null, image: '/image.jpg' })).unwrap();
 
 
         if (response?.success) {
@@ -70,7 +79,9 @@ const UseAuth = () => {
         getUserLogout,
         getUserRegister,
         imageRef,
-        user
+        user,
+        getAdminTokenVerify,
+        verifyAdminToken
         // getStudentRegister
     }
 }

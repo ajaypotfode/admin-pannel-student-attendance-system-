@@ -1,5 +1,5 @@
-import { createUserAPI, isUserLoginAPI, loginUserAPI, logoutUserAPI, studentRegistrationAPI } from '@/service/authApiService'
-import type { CommonResponse, InitialStateType, IsLoginUserResponse, LoginData, LoginResponse, SignupResponse, UserData } from '@/types/AuthType'
+import { adminTokenVerifyAPI, createUserAPI, isUserLoginAPI, loginUserAPI, logoutUserAPI, studentRegistrationAPI } from '@/service/authApiService'
+import type { AdminTokenVerifyResponse, CommonResponse, InitialStateType, IsLoginUserResponse, LoginData, LoginResponse, SignupResponse, UserData } from '@/types/AuthType'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { AxiosError } from 'axios'
 
@@ -59,10 +59,23 @@ export const studentRegistration = createAsyncThunk<SignupResponse, UserData, { 
 })
 
 
+
+export const adminVerifyToken = createAsyncThunk<AdminTokenVerifyResponse, string, { rejectValue: string }>("adminVerifyToken", async (adminToken, { rejectWithValue }) => {
+    try {
+        const response = await adminTokenVerifyAPI(adminToken)
+        return response
+    } catch (error) {
+        const err = error as AxiosError<{ message: string }>
+        return rejectWithValue(err.response?.data?.message || "Access Denied, Unauthorized To Registeration")
+    }
+})
+
+
 const initialState: InitialStateType = {
     isUserLogin: undefined,
     user: null,
-    isUserLoading: true
+    isUserLoading: true,
+    verifyAdminToken: null
 }
 
 const authSlice = createSlice({
@@ -87,6 +100,12 @@ const authSlice = createSlice({
             //     state.user = null;
             //     // state.isAuthLoading = false;
             // })
+            .addCase(adminVerifyToken.fulfilled, (state, action) => {
+                state.verifyAdminToken = action.payload.token
+            })
+            .addCase(adminVerifyToken.rejected, (state) => {
+                state.verifyAdminToken = null
+            })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.isUserLogin = false
                 state.isUserLoading = false

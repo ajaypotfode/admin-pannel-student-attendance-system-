@@ -16,14 +16,14 @@ import { registerFormSchema, type RegisterFormType } from '@/schema/authFormSche
 
 
 interface SignUpFormProps {
-    onSubmit(data: RegisterFormType, reset: () => void, role: string): void;
+    onSubmit(data: RegisterFormType, reset: () => void, role: string, token?: string | null): void;
     role: string,
-    imageRef: React.RefObject<HTMLInputElement | null>
+    imageRef: React.RefObject<HTMLInputElement | null>;
+    token?: string | null;
 
 }
 
-const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef }) => {
-
+const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef, token }) => {
 
     const form = useForm<RegisterFormType>({
         resolver: zodResolver(registerFormSchema),
@@ -38,13 +38,13 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef }) => 
     })
 
     return (
-        <Card className="w-full h-full bg-gray-900 text-white overflow-y-auto scrollbar-hidden">
+        <Card className="w-full h-full bg-gray-900 text-white overflow-y-auto scrollbar-hidden max-h-fit place-content-center">
             <CardHeader>
                 <CardTitle>Register Your Account</CardTitle>
             </CardHeader>
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit((values) => onSubmit(values, form.reset, role))} className="w-full space-y-6">
+                    <form onSubmit={form.handleSubmit((values) => onSubmit(values, form.reset, role, token))} className="w-full space-y-6">
                         {/* <form className="w-full space-y-6"> */}
 
                         <FormField
@@ -55,7 +55,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef }) => 
                                     <FormLabel>Image</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="shadcn"
+                                            placeholder="Select Image"
                                             // type="files"
                                             type="file"
                                             ref={imageRef}
@@ -75,7 +75,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef }) => 
                                     <FormLabel>User Name</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="shadcn"
+                                            placeholder="Enter User name"
                                             {...field}
                                         />
                                     </FormControl>
@@ -90,7 +90,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef }) => 
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} />
+                                        <Input placeholder="Enter Email" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -103,7 +103,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef }) => 
                                 <FormItem>
                                     <FormLabel>Contact No</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} />
+                                        <Input placeholder="Enter Contact No" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -116,7 +116,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef }) => 
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} />
+                                        <Input placeholder="Enter password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
