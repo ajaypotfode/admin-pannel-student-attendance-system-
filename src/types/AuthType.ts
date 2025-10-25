@@ -25,6 +25,7 @@ export interface SignupResponse extends CommonResponse {
         role: string,
         userName: string,
         email: string,
+        status?:string
         image: string,
         contactNo: string,
         _id: string,

@@ -5,7 +5,7 @@ import { useAppSelector } from "@/redux/reduxHook";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoutes = () => {
-    const { isUserLogin, user, isUserLoading } = useAppSelector(state => state.auth);
+    const { isUserLogin, /*user,*/ isUserLoading } = useAppSelector(state => state.auth);
 
     if (isUserLoading) {
         return <LoadingPage />
@@ -17,11 +17,11 @@ const ProtectedRoutes = () => {
     }
 
 
-    if (!isUserLogin) {
-        return null;
-    }
+    // if (!isUserLogin) {
+    //     return null;
+    // }
 
-    if (user?.role !== 'admin' || user?.status !== 'active') {
+    if (!isUserLogin) {
         return <Navigate to='/unauthorized' replace />
     }
 

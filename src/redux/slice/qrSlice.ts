@@ -47,7 +47,7 @@ export const handleAttendenceSummary = createAsyncThunk<CommonResponse, string, 
 const initialState: QrInitialState = {
     studentData: null,
     attendence: null,
-    currentQrClass:''
+    currentQrClass: ''
     // currentClass: null
     // openQr: false
 

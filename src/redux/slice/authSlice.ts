@@ -71,20 +71,22 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loginUser.pending, (state) => {
-                state.isUserLoading = true
-            })
-            .addCase(loginUser.fulfilled, (state) => {
-                state.isUserLogin = true
-                state.isUserLoading = false
+            // .addCase(loginUser.pending, (state) => {
+            //     state.isUserLoading = true
+            // })
+            // .addCase(loginUser.fulfilled, (state, action) => {
+            //     if (action.payload.result?.role === 'admin' && action.payload.result?.status === 'active') {
+            //         state.isUserLogin = true
+            //     }
+            //     state.isUserLoading = false
 
-            })
-            .addCase(loginUser.rejected, (state) => {
-                state.isUserLogin = false;
-                state.isUserLoading = false
-                state.user = null;
-                // state.isAuthLoading = false;
-            })
+            // })
+            // .addCase(loginUser.rejected, (state) => {
+            //     state.isUserLogin = false;
+            //     state.isUserLoading = false
+            //     state.user = null;
+            //     // state.isAuthLoading = false;
+            // })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.isUserLogin = false
                 state.isUserLoading = false
@@ -94,7 +96,9 @@ const authSlice = createSlice({
                 state.isUserLoading = true
             })
             .addCase(isLoginUser.fulfilled, (state, action) => {
-                state.isUserLogin = true
+                if (action.payload.result?.role === 'admin' && action.payload.result?.status === 'active') {
+                    state.isUserLogin = true
+                }
                 state.isUserLoading = false
 
                 state.user = action.payload.result || null
