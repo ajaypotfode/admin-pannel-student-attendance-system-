@@ -23,12 +23,13 @@ import {
 } from "@/components/ui/form"
 import { LoginFormSchema, type LoginFormType } from '@/schema/authFormSchema'
 import UseAuth from '@/hooks/useAuth'
+import { Spinner } from "@/components/Spinner"
 // import { useAppSelector } from '@/redux/reduxHook'
 
 
 const Login = () => {
     // const { loginData } = useAppSelector(state => state.auth)
-    const { getUserLogin } = UseAuth()
+    const { getUserLogin, loading } = UseAuth()
     const form = useForm<LoginFormType>({
         resolver: zodResolver(LoginFormSchema),
         defaultValues: {
@@ -45,49 +46,53 @@ const Login = () => {
                 <div className="bg-white/10 backdrop-blur-lg flex-1 rounded-t-3xl overflow-hidden flex flex-col justify-center items-center">
 
                     <Card className="w-full max-w-sm bg-gray-900 text-white">
-                        <CardHeader>
-                            <CardTitle>Login to your account</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <Form {...form}>
-                                <form onSubmit={form.handleSubmit((values) => getUserLogin(values, form.reset))} className="w-full space-y-6">
-                                    {/* <form className="w-full space-y-6"> */}
-                                    <FormField
-                                        control={form.control}
-                                        name="email"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Email</FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Enter Email"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="password"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Password</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="Enter Password" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <Button type="submit" className="bg-white text-black hover:bg-gray-400">Submit</Button>
-                                </form>
-                            </Form>
-                        </CardContent>
-                        <CardFooter className="flex-col gap-2 items-start ">
-                            <p className='text-sm'>Don't have Account then,  <Link to='/auth/signup' className='text-blue-500 underline'>Signup</Link></p>
-                        </CardFooter>
+                        {
+                            loading['loginUser'] ? <Spinner /> :
+                                <>  <CardHeader>
+                                    <CardTitle>Login to your account</CardTitle>
+                                </CardHeader>
+                                    <CardContent>
+                                        <Form {...form}>
+                                            <form onSubmit={form.handleSubmit((values) => getUserLogin(values, form.reset))} className="w-full space-y-6">
+                                                {/* <form className="w-full space-y-6"> */}
+                                                <FormField
+                                                    control={form.control}
+                                                    name="email"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>Email</FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder="Enter Email"
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="password"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>Password</FormLabel>
+                                                            <FormControl>
+                                                                <Input placeholder="Enter Password" {...field} />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <Button type="submit" className="bg-white text-black hover:bg-gray-400">Submit</Button>
+                                            </form>
+                                        </Form>
+                                    </CardContent>
+                                    <CardFooter className="flex-col gap-2 items-start ">
+                                        <p className='text-sm'>Don't have Account then,  <Link to='/auth/signup' className='text-blue-500 underline'>Signup</Link></p>
+                                    </CardFooter>
+                                </>
+                        }
                     </Card>
 
                 </div>

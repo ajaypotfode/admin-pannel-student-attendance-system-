@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
 import {
     Form,
     FormControl,
@@ -13,6 +13,7 @@ import { Button } from './ui/button'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerFormSchema, type RegisterFormType } from '@/schema/authFormSchema'
+import { Link } from 'react-router-dom'
 
 
 interface SignUpFormProps {
@@ -126,6 +127,11 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSubmit, role, imageRef, token
                     </form>
                 </Form>
             </CardContent>
+            {
+                role === 'admin' && <CardFooter className="flex-col gap-2 items-start ">
+                    <p className='text-sm'>Already Have an Account,  <Link to='/auth/login' className='text-blue-500 underline'>Login</Link></p>
+                </CardFooter>
+            }
         </Card>
     )
 }

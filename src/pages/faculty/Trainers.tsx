@@ -26,7 +26,7 @@ const Trainers = () => {
 
 
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full ">
             <h1 className="smallsc1:text-4xl text-2xl text-white font-bold ml-6 mt-4">All Trainers</h1>
             <div className="flex justify-center space-x-6 gap-6 p-5 py-8 h-[94%] w-full ">
                 <Card className="pt-0 w-[60%] bg-gray-900 border border-gray-500 text-white mx-auto rounded-xl relative overflow-hidden">

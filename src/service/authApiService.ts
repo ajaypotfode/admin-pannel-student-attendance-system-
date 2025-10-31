@@ -60,7 +60,7 @@ export const createUserAPI = async (userData: UserData): Promise<SignupResponse>
             `${import.meta.env.VITE_BASE_URL}/auth/signup`,
             data,
             {
-                // withCredentials: true,
+                withCredentials: true,
                 headers: {
                     'Content-Type': "application/json"
                 }
@@ -112,7 +112,7 @@ export const loginUserAPI = async (loginData: LoginData): Promise<LoginResponse>
             `${import.meta.env.VITE_BASE_URL}/auth/login`,
             data,
             {
-                // withCredentials: true,
+                withCredentials: true,
                 headers: {
                     'Content-Type': "application/json"
                 }

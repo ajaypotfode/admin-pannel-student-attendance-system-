@@ -9,6 +9,7 @@ import { useRef } from "react"
 const UseAuth = () => {
 
     const { user, verifyAdminToken } = useAppSelector(state => state.auth)
+    const { loading } = useAppSelector(state => state.common)
     const imageRef: React.RefObject<HTMLInputElement | null> = useRef(null)
     const dispatch = useAppDispatch()
 
@@ -18,7 +19,6 @@ const UseAuth = () => {
         if (response.success) {
             reset()
             window.location.href = '/'
-
             // localStorage.setItem('token', JSON.stringify(response.token))
         }
     }
@@ -81,7 +81,8 @@ const UseAuth = () => {
         imageRef,
         user,
         getAdminTokenVerify,
-        verifyAdminToken
+        verifyAdminToken,
+        loading
         // getStudentRegister
     }
 }
