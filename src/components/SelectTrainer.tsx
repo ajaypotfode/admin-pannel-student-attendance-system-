@@ -42,7 +42,7 @@ export const SelectTrainer: React.FC<SelectTrainerProps> = ({ trainers, fetchDat
     )
 
     React.useEffect(() => {
-        debounceFetch({search:classSearch})
+        debounceFetch({ search: classSearch['selectTrainer'] })
 
     }, [classSearch, debounceFetch])
 
@@ -65,7 +65,7 @@ export const SelectTrainer: React.FC<SelectTrainerProps> = ({ trainers, fetchDat
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0 bg-gray-900 border border-gray-500 text-white ">
                 <Command className="bg-gray-900 border border-gray-500 text-white">
-                    <CommandInput placeholder="Search framework..." value={classSearch} className="h-9" onValueChange={(value) => getClassSearchValue(value)} />
+                    <CommandInput placeholder="Search framework..." value={classSearch['selectTrainer']} className="h-9" onValueChange={(value) => getClassSearchValue(value, 'selectTrainer')} />
                     <CommandList className="">
                         {
                             (loading['getActiveTrainers']) ? <Spinner className="w-8 h-8" />

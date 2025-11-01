@@ -143,7 +143,7 @@ export const getOverviewDataAPI = async (): Promise<GetOverviewResponse> => {
 
     try {
         const response = await axios.get<GetOverviewResponse>(
-            `${import.meta.env.VITE_BASE_URL}/class/overview`,
+            `${import.meta.env.VITE_BASE_URL}/org/overview`,
             {
                 withCredentials: true,
                 headers: {

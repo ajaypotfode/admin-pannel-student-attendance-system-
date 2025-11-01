@@ -18,7 +18,7 @@ const TrainerDetails: React.FC<TrainerDetailsProps> = ({ allTrainers, loading })
                     <div>
                         <h2 className="smallsc1:text-lg text-md  font-semibold">All Trainers</h2>
                         <p className="xl:text-sm text-[12px] text-muted-foreground">
-                            This Trainers Are Into Our Organazion
+                            These trainers are part of our organization.
                         </p>
                     </div>
                     {/* <Button variant="outline" size="sm" className=" border-white bg-white text-black">

@@ -1,9 +1,9 @@
-import { createSlice, isFulfilled, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isFulfilled, isPending, isRejected, type PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 interface CommonInitialState {
-    classSearch: string,
-    userSearch: string,
+    classSearch: { [key: string]: string },
+    userSearch: { [key: string]: string },
     // search: string,
     error: { [key: string]: string },
     loading: { [key: string]: boolean },
@@ -19,8 +19,8 @@ interface CommonInitialState {
 
 const initialState: CommonInitialState = {
     // search: "",
-    classSearch: "",
-    userSearch: "",
+    classSearch: {},
+    userSearch: {},
     error: {},
     loading: {},
     // currentClass: null,
@@ -32,11 +32,12 @@ const commonSlice = createSlice({
     name: 'common',
     initialState,
     reducers: {
-        setClassSearch: (state, action) => {
-            state.classSearch = action.payload
+        setClassSearch: (state, action: PayloadAction<{ [key: string]: string }>) => {
+            state.classSearch[action.payload.type] = action.payload.value;
+
         },
-        setUserSearch: (state, action) => {
-            state.userSearch = action.payload
+        setUserSearch: (state, action: PayloadAction<{ [key: string]: string }>) => {
+            state.userSearch[action.payload.type] = action.payload.value;
         },
         // setCurrentClass: (state, action) => {
         //     state.currentClass = action.payload
@@ -89,6 +90,6 @@ const commonSlice = createSlice({
             })
     }
 });
-export const { setClassSearch, setUserSearch, setSidebar, /*clearPagesValue */} = commonSlice.actions;
+export const { setClassSearch, setUserSearch, setSidebar, /*clearPagesValue */ } = commonSlice.actions;
 export default commonSlice.reducer
 

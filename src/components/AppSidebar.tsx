@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import {
     LayoutDashboard,
@@ -104,16 +104,16 @@ const Sidebar = () => {
                                 // const isActive = pathname === item.path
                                 return (
                                     <li key={idx}>
-                                        <Link
+                                        <NavLink
                                             to={item.path}
-                                            className={cn(
-                                                "flex items-center gap-2 px-3 py-2 rounded-md smallsc1:text-sm text-[12px] text-white",
-                                                // isActive ? "bg-gray-800 text-white" : "hover:bg-gray-800 text-gray-300"
-                                            )}
+                                            className={({ isActive }) =>
+                                                `flex items-center gap-2 px-3 py-2 rounded-md smallsc1:text-sm text-[12px] text-white
+                                               ${isActive ? "bg-gradient-to-bl from-gray-900 from-10% to-blue-950 to-60%" : ""}`
+                                            }
                                         >
                                             <item.icon className="w-4 h-4" />
                                             {item.label}
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                 )
                             })}

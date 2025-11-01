@@ -74,3 +74,4 @@ export const handleOrgRegistrationAPI = async (registrationdata: RegiStartionDat
         throw error
     }
 }
+

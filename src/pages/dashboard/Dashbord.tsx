@@ -4,7 +4,6 @@ import { CardsSkeleton } from '@/components/Spinner'
 import TrainerDetails from '@/components/TrainerDetailsTable'
 import UseClassData from '@/hooks/useClassData'
 import UseUserData from '@/hooks/useUserData'
-// import { UserPlus2 } from 'lucide-react'
 import { useEffect } from 'react'
 
 
@@ -19,6 +18,7 @@ const Dashbord = () => {
     }, [])
 
 
+
     return (
         <div className="w-full  overflow-y-auto scrollbar-hidden flex-1 h-full">
             <h1 className="smallsc1:text-4xl text-2xl text-white font-bold ml-6 mt-4">Dashboard</h1>
@@ -30,7 +30,7 @@ const Dashbord = () => {
                                 title={item.title}
                                 mainValue={item.count}
                                 detail={item.details}
-                                logo={'logo'}
+                                logo={item.logoData}
                                 key={index}
                             />
                         </div>

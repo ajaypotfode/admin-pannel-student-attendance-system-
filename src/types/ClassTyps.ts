@@ -26,7 +26,8 @@ export type Overviewdata = [
     {
         count: number,
         title: string,
-        details: string
+        details: string,
+        logoData: string
     }
 ]
 

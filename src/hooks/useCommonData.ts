@@ -21,14 +21,14 @@ const UseCommonData = () => {
     }
 
 
-    const getClassSearchValue = (value: string) => {
-        dispatch(setClassSearch(value))
+    const getClassSearchValue = (value: string, type: string) => {
+        dispatch(setClassSearch({ value, type }))
         // console.log("value is :",value);
 
     }
 
-    const getUserSearchValue = (value: string) => {
-        dispatch(setUserSearch(value))
+    const getUserSearchValue = (value: string, type: string) => {
+        dispatch(setUserSearch({ value, type }))
     }
 
     // const debouncingClass=useCallback(

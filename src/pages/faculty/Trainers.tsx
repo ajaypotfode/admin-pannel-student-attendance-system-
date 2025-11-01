@@ -21,7 +21,7 @@ const Trainers = () => {
     )
 
     useEffect(() => {
-        debouncingFetchTrainers({search:userSearch})
+        debouncingFetchTrainers({ search: userSearch['trainers'] })
     }, [userSearch, debouncingFetchTrainers])
 
 
@@ -33,7 +33,7 @@ const Trainers = () => {
                     <CardContent className="smallsc1:p-6 p-4 h-full flex flex-col">
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex gap-x-4 w-full">
-                                <Input placeholder="Search Trainer " value={userSearch} className='w-fit' onChange={(e) => getUserSearchValue(e.target.value)} />
+                                <Input placeholder="Search Trainer " value={userSearch['trainers']} className='w-fit' onChange={(e) => getUserSearchValue(e.target.value, 'trainers')} />
                                 {/* <ComboboxDemo /> */}
                             </div>
                         </div>
@@ -73,10 +73,10 @@ const Trainers = () => {
 
                     <CardFooter className="absolute bottom-0 right-0">
                         <PaginationComponent
-                         pageNum={pages['getAllTrainers']?.pageNum || 0} 
-                        totalPage={pages['getAllTrainers']?.totalPages || 0}
-                        getNextPage={fetchAllTrainers}
-                         />
+                            pageNum={pages['getAllTrainers']?.pageNum || 0}
+                            totalPage={pages['getAllTrainers']?.totalPages || 0}
+                            getNextPage={fetchAllTrainers}
+                        />
                     </CardFooter>
                 </Card>
 

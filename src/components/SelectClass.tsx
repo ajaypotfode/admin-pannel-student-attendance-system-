@@ -43,7 +43,7 @@ export const SelectClass: React.FC<ComboBoxProps> = ({ classData, fetchData, get
   )
 
   React.useEffect(() => {
-    debounceFetch({ search: classSearch })
+    debounceFetch({ search: classSearch['selectClass'] })
 
   }, [classSearch, debounceFetch])
 
@@ -74,7 +74,7 @@ export const SelectClass: React.FC<ComboBoxProps> = ({ classData, fetchData, get
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 bg-gray-900 border border-gray-500 text-white ">
         <Command className="bg-gray-900 border border-gray-500 text-white">
-          <CommandInput placeholder="Search framework..." value={classSearch} className="h-9" onValueChange={(value) => getClassSearchValue(value)} />
+          <CommandInput placeholder="Search framework..." value={classSearch['selectClass']} className="h-9" onValueChange={(value) => getClassSearchValue(value, 'selectClass')} />
           <CommandList className="">
             {
               (loading['getActiveClasses'] || loading['getClassesReference']) ? <Spinner className="w-8 h-8" />

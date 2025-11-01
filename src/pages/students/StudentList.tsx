@@ -11,15 +11,15 @@ import { useCallback, useEffect } from 'react'
 
 
 const StudentList = () => {
-    const { userSearch, debouncing, getUserSearchValue} = UseCommonData();
-    const { fetchAllStudents, fetchStudent, allStudents, student, loading,pages } = UseUserData()
+    const { userSearch, debouncing, getUserSearchValue } = UseCommonData();
+    const { fetchAllStudents, fetchStudent, allStudents, student, loading, pages } = UseUserData()
 
     const debouncingFetchStudents = useCallback(
         debouncing(fetchAllStudents, 500), []
     )
 
     useEffect(() => {
-        debouncingFetchStudents({search:userSearch})
+        debouncingFetchStudents({ search: userSearch['students'] })
     }, [userSearch, debouncingFetchStudents])
 
 
@@ -31,7 +31,7 @@ const StudentList = () => {
                     <CardContent className="smallsc1:p-6 p-4 pt-0 h-full flex flex-col">
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex gap-x-4 w-full">
-                                <Input placeholder="Enter Student Name " value={userSearch} className='w-fit' onChange={(e) => getUserSearchValue(e.target.value)} />
+                                <Input placeholder="Enter Student Name " value={userSearch['students']} className='w-fit' onChange={(e) => getUserSearchValue(e.target.value, 'students')} />
                                 {/* <ComboboxDemo /> */}
                             </div>
                         </div>

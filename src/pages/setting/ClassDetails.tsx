@@ -1,4 +1,4 @@
-import  { useCallback, useEffect} from 'react'
+import { useCallback, useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 // import { Button } from '@/components/ui/button'
 import ClassForm from '@/components/ClassForm'
@@ -12,7 +12,7 @@ import { PaginationComponent } from '@/components/Pagination'
 import { TableSkeleton } from '@/components/Spinner'
 
 const ClassDetails = () => {
-    const { allClasses, fetchClass, markClassAsComplete,  generateNewClass, classForm, setClassForm, loading } = UseClassData();
+    const { allClasses, fetchClass, markClassAsComplete, generateNewClass, classForm, setClassForm, loading } = UseClassData();
     const { classSearch, debouncing, getClassSearchValue, pages } = UseCommonData()
 
 
@@ -21,7 +21,7 @@ const ClassDetails = () => {
     )
 
     useEffect(() => {
-        debouncingFetch({search:classSearch})
+        debouncingFetch({ search: classSearch['classDetails'] })
     }, [classSearch, debouncingFetch])
 
 
@@ -34,7 +34,7 @@ const ClassDetails = () => {
                     <CardContent className="smallsc1:p-6 p-4 pt-0 h-full flex flex-col">
                         <div className="flex items-center justify-between mb-4">
                             <div className='flex justify-between w-full'>
-                                <Input placeholder="Enter user Name " value={classSearch} className='w-fit' onChange={(e) => getClassSearchValue(e.target.value)} />
+                                <Input placeholder="Enter user Name " value={classSearch['classDetails']} className='w-fit' onChange={(e) => getClassSearchValue(e.target.value, 'classDetails')} />
                                 <Button className=' bg-white text-black hover:bg-gray-400 ' onClick={() => setClassForm(!classForm)}>
                                     Add Class +
                                 </Button>
@@ -101,11 +101,11 @@ const ClassDetails = () => {
                     </CardContent>
                     <CardFooter className="relative w-full">
                         <div className='absolute bottom-0 right-0  '>
-                            <PaginationComponent 
-                            pageNum={pages['getClasses']?.pageNum || 0}
-                             totalPage={pages['getClasses']?.totalPages || 0} 
-                             getNextPage={fetchClass}
-                             />
+                            <PaginationComponent
+                                pageNum={pages['getClasses']?.pageNum || 0}
+                                totalPage={pages['getClasses']?.totalPages || 0}
+                                getNextPage={fetchClass}
+                            />
                         </div>
 
                     </CardFooter>
