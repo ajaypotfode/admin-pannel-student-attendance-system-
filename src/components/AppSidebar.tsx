@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import {NavLink } from 'react-router-dom';
 
 import {
     LayoutDashboard,
@@ -18,7 +18,6 @@ import {
     SidebarClose,
     // SidebarIcon,
 } from "lucide-react"
-import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import UseAuth from '@/hooks/useAuth';
 import UseCommonData from '@/hooks/useCommonData';
