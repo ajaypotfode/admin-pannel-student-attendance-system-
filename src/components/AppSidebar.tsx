@@ -1,4 +1,4 @@
-import {NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import {
     LayoutDashboard,
@@ -16,6 +16,14 @@ import {
     Bell,
     LogOut,
     SidebarClose,
+    UserRoundPen,
+    BookOpenText,
+    LayoutList,
+    UserPlus2,
+    Users2,
+    UserCircle,
+    BookOpenCheckIcon,
+    NotebookPenIcon,
     // SidebarIcon,
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -43,7 +51,7 @@ const sidebarGroups = [
         group: "Students",
         items: [
             { label: "Student List", icon: Users, path: '/students/list' },
-            { label: "Assign Class", icon: Users, path: '/students/assign-class' },
+            { label: "Assign Class", icon: BookOpenCheckIcon, path: '/students/assign-class' },
             // { label: "Import Students", icon: Upload, path: "/students/import" },
             { label: "Attendance History", icon: History, path: "/students/summary" },
         ],
@@ -52,17 +60,20 @@ const sidebarGroups = [
         group: "Faculty",
         items: [
             // { label: "Faculty List", icon: UserCheck, path: "/faculty" },
-            { label: "Add Trainers", icon: UserCheck, path: "/faculty/add" },
-            { label: "Trainers List", icon: UserCheck, path: "/faculty/trainers" },
+            {
+                label: "Add Trainers", icon: UserCircle
+                , path: "/faculty/add"
+            },
+            { label: "Trainers List", icon: Users2, path: "/faculty/trainers" },
             // { label: "Assign Roles", icon: ShieldCheck, path: "/faculty/roles" },
         ],
     },
     {
         group: "Settings",
         items: [
-            { label: "User Management", icon: Settings, path: "/settings/users" },
-            { label: "Class Management", icon: Bell, path: "/settings/classes" },
-            { label: "Registration", icon: Bell, path: "/settings/registration" },
+            { label: "User Management", icon: UserRoundPen, path: "/settings/users" },
+            { label: "Class Management", icon: LayoutList, path: "/settings/classes" },
+            { label: "Registration", icon:NotebookPenIcon, path: "/settings/registration" },
             // { label: "QR Code Settings", icon: QrCode, path: "/settings/qr" },
             { label: "Notifications", icon: Bell, path: "/settings/notification" },
         ]
