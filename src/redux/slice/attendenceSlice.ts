@@ -149,15 +149,9 @@ const attendenceSlice = createSlice({
             state.dataForMarkAttendence = action.payload
         },
         setStudentsId: (state, action) => {
-            // console.log("classId Into in class Slice :", state.classAssignmentData.classId);
-            const { studentIds } = state.dataForMarkAttendence
-            const alreadySelected = studentIds.includes(action.payload)
-
             state.dataForMarkAttendence = {
                 ...state.dataForMarkAttendence,
-                studentIds: alreadySelected ?
-                    studentIds.filter(id => id !== action.payload)
-                    : [...studentIds, action.payload]
+                studentIds: action.payload
             }
         },
         setAttendenceParams: (state, action) => {
@@ -193,6 +187,10 @@ const attendenceSlice = createSlice({
                 state.allClassStudents = action.payload.result || []
             })
             .addCase(markAttendence.fulfilled, (state) => {
+                // state.allClassStudents = action.payload.result || []
+                state.dataForMarkAttendence = { ...state.dataForMarkAttendence, studentIds: [] }
+            })
+            .addCase(markAttendence.rejected, (state) => {
                 // state.allClassStudents = action.payload.result || []
                 state.dataForMarkAttendence = { ...state.dataForMarkAttendence, studentIds: [] }
             })

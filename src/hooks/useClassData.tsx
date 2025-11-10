@@ -110,10 +110,15 @@ const UseClassData = () => {
             // getAvailableStudents({ classId: value })
             setClassIdService(value, 'assignClass')
             dispatch(getStudentForClassAssignment({ classId: value }))
+            dispatch(setStudentsId([]))
         }
         else {
-            dispatch(setStudentsId(value))
+            const alreadySelected = classAssignmentData.studentsId.includes(value)
+            const selectedStudents = alreadySelected ?
+                classAssignmentData.studentsId.filter(id => id !== value)
+                : [...classAssignmentData.studentsId, value]
 
+            dispatch(setStudentsId(selectedStudents))
         }
     }
 

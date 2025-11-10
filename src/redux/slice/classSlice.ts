@@ -186,15 +186,9 @@ const classSlice = createSlice({
             state.classAssignmentData = action.payload
         },
         setStudentsId: (state, action) => {
-            // console.log("classId Into in class Slice :", state.classAssignmentData.classId);
-            const { studentsId } = state.classAssignmentData
-            const alreadySelected = studentsId.includes(action.payload)
-
             state.classAssignmentData = {
                 ...state.classAssignmentData,
-                studentsId: alreadySelected
-                    ? studentsId.filter(id => id !== action.payload)
-                    : [...studentsId, action.payload]
+                studentsId: action.payload
             }
         }
     },

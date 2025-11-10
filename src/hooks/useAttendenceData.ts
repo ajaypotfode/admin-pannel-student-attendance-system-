@@ -108,10 +108,17 @@ const UseAttendenceData = () => {
             setClassIdService(value, 'markAttendence')
             dispatch(handleAttendenceSummary(value))
             dispatch(getAllClassStudents({ classId: value }))
+            dispatch(setStudentsId([]))
 
         }
         else {
-            dispatch(setStudentsId(value))
+            const alreadySelected = dataForMarkAttendence.studentIds.includes(value)
+
+            const selectedStudents = alreadySelected ?
+                dataForMarkAttendence.studentIds.filter(id => id !== value)
+                : [...dataForMarkAttendence.studentIds, value]
+
+            dispatch(setStudentsId(selectedStudents))
 
         }
     }
