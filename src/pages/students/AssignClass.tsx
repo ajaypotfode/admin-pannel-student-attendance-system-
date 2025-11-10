@@ -6,30 +6,32 @@ import { Button } from '@/components/ui/button'
 // import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
 // import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import UseClassData from '@/hooks/useClassData'
 import UseCommonData from '@/hooks/useCommonData'
+import { useCallback, useEffect } from 'react'
 
 
 
 const AssignClass = () => {
 
-    const { /*userSearch, debouncing, getUserSearchValue,*/ pages } = UseCommonData();
+    const { userSearch, debouncing, getUserSearchValue, pages } = UseCommonData();
     // const { fetchAllStudents, allStudents } = UseUserData();
-    const { classAssignmentData, getAssignClassData, fetchActiveClass, activeClasses, /*fetchStudentsForClassAssignment,*/ availableStudents, assignClassToStudent, loading, getAvailableStudents } = UseClassData()
+    const { classAssignmentData, getAssignClassData, fetchActiveClass, activeClasses, availableStudents, assignClassToStudent, loading, getAvailableStudents } = UseClassData()
     // const { getAssignClassData } = UseClassData()
     // const {}
 
-    // const debouncingFetchStudents = useCallback(
-    //     debouncing(fetchStudentsForClassAssignment, 500), []
-    // )
+    const debouncingFetchStudents = useCallback(
+        debouncing(getAvailableStudents, 500), []
+    )
 
-    // useEffect(() => {
-    //     if (userSearch) {
-    //         debouncingFetchStudents(userSearch)
-    //     }
-    // }, [userSearch, debouncingFetchStudents])
+    useEffect(() => {
+        if (Array.isArray(availableStudents)) {
+            debouncingFetchStudents({ search: userSearch['assignClass'] })
+        }
+    }, [userSearch, debouncingFetchStudents])
 
 
     return (
@@ -45,13 +47,11 @@ const AssignClass = () => {
                                 {
                                     classAssignmentData.studentsId.length > 0 &&
                                     <Button className='bg-white text-black hover:bg-gray-400' onClick={assignClassToStudent}>Assign Class</Button>
-                                    // classAssignmentData.studentsId.length > 0 ?
-                                    //     <>
-                                    //         <Input placeholder="Enter Student Name " className='w-fit' value={userSearch} onChange={(e) => getUserSearchValue(e.target.value)} />
-                                    //         <Button onClick={getAddClass}>Assign Class</Button>
-                                    //     </>
-                                    //     : <Button onClick={() => fetchStudentsForClassAssignment()} >Get Students</Button>
                                 }
+                                {
+                                    Array.isArray(availableStudents) &&
+                                    <Input placeholder="Enter Student Name " value={userSearch['assignClass'] || ''} className='w-fit' onChange={(e) => getUserSearchValue(e.target.value, 'assignClass')} />}
+                                {/* <ComboboxDemo /> */}
                                 {/* <Input placeholder="Enter Student Name " className='w-fit' value={search} onChange={(e) => getSearchValue(e.target.value)} /> */}
                                 {/* <ComboboxDemo /> */}
                             </div>
@@ -72,11 +72,11 @@ const AssignClass = () => {
                                                 </TableRow>
                                             </TableHeader>
                                             <TableBody>
-                                                {availableStudents.map((student, index) => (
+                                                {availableStudents && availableStudents.map((student, index) => (
                                                     <TableRow key={index}>
                                                         <TableCell>
                                                             <Checkbox
-                                                                className=' checked:bg-white checked:text-gray-500'
+                                                                className=' data-[state=checked]:bg-green-600 w-5 h-5 '
                                                                 checked={classAssignmentData.studentsId.includes(student._id)}
                                                                 onCheckedChange={() => getAssignClassData(student._id)} />
                                                         </TableCell>
@@ -108,7 +108,7 @@ const AssignClass = () => {
                         <div className='absolute bottom-0 left-5 text-sm text-gray-500 '>
                             select Class to see available students.
                         </div>
-                        <div className='absolute bottom-0 right-0  '>
+                        <div className='absolute bottom-0 right-4  '>
                             <PaginationComponent
                                 pageNum={pages['getStudentForClassAssignment']?.pageNum || 0}
                                 totalPage={pages['getStudentForClassAssignment']?.totalPages || 0}

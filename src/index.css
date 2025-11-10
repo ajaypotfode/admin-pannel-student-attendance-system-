@@ -107,6 +107,7 @@
 
   /* custome tailwind classes */
   --breakpoint-smallsc1: 1356px;
+  --breakpoint-smallsc2: 1px;
   --breakpoint-bigsc1: 1698px;
   --breakpoint-bigsc2: 1598px;
   --breakpoint-bigsc3: 1498px;

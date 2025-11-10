@@ -10,7 +10,7 @@ export interface StudentId {
     role: 'student' | string;
     email: string;
     contactNo: string;
-    username:string;
+    username: string;
 }
 
 export interface ClassId {
@@ -41,6 +41,11 @@ export interface QrVerifyResponse extends CommonResponse {
     students: Students;
     attendence: Attendence;
 }
+
+export interface CloseClassResponse extends CommonResponse {
+    result?: { time: string, className: string, _id: string }
+}
+
 
 
 // export type QrData = {

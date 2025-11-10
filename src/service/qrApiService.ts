@@ -1,8 +1,8 @@
-import type { CommonResponse, QrVerifyResponse } from "@/types/QrType";
+import type { CloseClassResponse, CommonResponse, QrVerifyResponse } from "@/types/QrType";
 import axios from "axios";
 // import token from "./tokenService";
 
-export const verifyQrAPI = async (qrVerifydata:{qrdata:string,classId:string}): Promise<QrVerifyResponse> => {
+export const verifyQrAPI = async (qrVerifydata: { qrdata: string, classId: string }): Promise<QrVerifyResponse> => {
     const data = JSON.stringify(qrVerifydata)
 
     try {
@@ -13,7 +13,31 @@ export const verifyQrAPI = async (qrVerifydata:{qrdata:string,classId:string}): 
                 withCredentials: true,
                 headers: {
                     'Content-Type': "application/json",
-                        // 'Authorization': `Bearer ${token}`
+                    // 'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return response.data
+    } catch (error) {
+        console.log(error);
+        throw error
+
+    }
+}
+
+
+export const closeClassAPI = async (classId: string): Promise<CloseClassResponse> => {
+    const data = JSON.stringify({ classId })
+
+    try {
+        const response = await axios.post<CloseClassResponse>(
+            `${import.meta.env.VITE_BASE_URL}/qr/close-class`,
+            data,
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': "application/json",
+                    // 'Authorization': `Bearer ${token}`
                 }
             }
         )
@@ -37,7 +61,7 @@ export const addAttendenceSummaryAPI = async (classId: string): Promise<CommonRe
                 withCredentials: true,
                 headers: {
                     'Content-Type': "application/json",
-                        // 'Authorization': `Bearer ${token}`
+                    // 'Authorization': `Bearer ${token}`
                 }
             }
         )

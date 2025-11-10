@@ -49,7 +49,7 @@ const StudentList = () => {
                                             </TableHeader>
                                             <TableBody>
                                                 {allStudents.map((student, index) => (
-                                                    <TableRow key={index} onClick={() => fetchStudent(student.email)}>
+                                                    <TableRow key={index} onClick={() => fetchStudent(student.email)} className='cursor-pointer' >
                                                         <TableCell>
                                                             <div className="font-medium text-white">{student.userName}</div>
                                                             {/* <div className="text-muted-foreground text-sm">{student.email}</div> */}

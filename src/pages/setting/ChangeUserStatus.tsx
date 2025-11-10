@@ -23,7 +23,7 @@ const ChangeUserStatus = () => {
             <div className="flex gap-x-4 w-full">
               <Input placeholder="Enter user Email " className='w-fit' value={userData || ""} onChange={(e) => getUserData(e.target.value)} />
               {/* <Input placeholder="Enter active/block " className='w-fit' /> */}
-              <Button onClick={fetchUser} >Get User</Button>
+              <Button onClick={fetchUser} className='bg-white text-black hover:bg-gray-400  cursor-pointer ' >Get User</Button>
               {/* <ComboboxDemo /> */}
             </div>
           </div>
@@ -60,7 +60,7 @@ const ChangeUserStatus = () => {
                 {/* <Input id="username-1" name="username" defaultValue="@peduarte" /> */}
               </div>
               <div className='flex justify-between w-full'>
-                <Button className='w-fit' onClick={getChangeUserStatus} >Change Status</Button>
+                <Button className='w-fit bg-white text-black hover:bg-gray-400 ' onClick={getChangeUserStatus} >Change Status</Button>
                 <p className='text-gray-500'>To Change User Status "Get User" Via "Email"</p>
               </div>
 

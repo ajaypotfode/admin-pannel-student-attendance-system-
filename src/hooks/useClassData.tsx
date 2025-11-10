@@ -1,7 +1,8 @@
 // import React from 'react'
 
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHook"
-import { addClass, assignStudentClass, getActiveClasses, getClasses, getClassesReference, getOverviewData, getStudentForClassAssignment, markCompleteClass, setClassData, setClassId, setStudentsId } from "@/redux/slice/classSlice";
+import { addClass, assignStudentClass, getActiveClasses, getClasses, getClassesReference, getOverviewData, getStudentForClassAssignment, markCompleteClass, setClassData, setClassId, setStudentsId, updateClassData } from "@/redux/slice/classSlice";
+import { getClassIdService, setClassIdService, setUpdateClassDataService } from "@/service/localStorageService";
 import type { ClassDataType } from "@/types/ClassTyps";
 import { format, parse } from "date-fns";
 import { useState } from "react";
@@ -31,6 +32,32 @@ const UseClassData = () => {
                 fetchClass({})
             }
         }
+    }
+
+
+    const updateClass = async (data: ClassDataType, reset: () => void) => {
+        let formatData
+        if (data) {
+            const convertedDate = parse(data.time, 'HH:mm', new Date())
+            formatData = format(convertedDate, "h:mm a")
+            const response = await dispatch(updateClassData({ ...data, time: formatData })).unwrap()
+            if (response.success) {
+                reset()
+                setClassForm(false)
+                fetchClass({})
+            }
+        }
+    }
+
+
+    const handleOpenClassForm = (classData?: ClassDataType) => {
+        if (classData?.id) {
+            const formatTime = format(parse(classData.time, 'h:mm a', new Date()), "HH:mm")
+            setUpdateClassDataService({ ...classData, time: formatTime })
+        } else {
+            setUpdateClassDataService({ className: '', time: '', trainer: '' })
+        }
+        setClassForm(true)
     }
 
 
@@ -66,9 +93,13 @@ const UseClassData = () => {
 
     }
 
- 
-    const getAvailableStudents = ({ pageNum }: { pageNum?: number }) => {
-        dispatch(getStudentForClassAssignment({ pageNum }))
+
+    const getAvailableStudents = ({ pageNum, search }: { pageNum?: number, search?: string }) => {
+        dispatch(getStudentForClassAssignment({
+            pageNum,
+            classId: getClassIdService('assignClass') as string,
+            search
+        }))
     }
 
 
@@ -77,6 +108,7 @@ const UseClassData = () => {
         if (name === 'classId') {
             dispatch(setClassId({ ...classAssignmentData, classId: value }))
             // getAvailableStudents({ classId: value })
+            setClassIdService(value, 'assignClass')
             dispatch(getStudentForClassAssignment({ classId: value }))
         }
         else {
@@ -93,7 +125,7 @@ const UseClassData = () => {
         }
     }
 
-  
+
 
     return {
         generateNewClass,
@@ -116,6 +148,8 @@ const UseClassData = () => {
         markClassAsComplete,
         classForm,
         setClassForm,
+        updateClass,
+        handleOpenClassForm,
         loading,
         pages
 

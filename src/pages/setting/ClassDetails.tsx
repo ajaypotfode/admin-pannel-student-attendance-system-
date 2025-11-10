@@ -10,9 +10,12 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { PaginationComponent } from '@/components/Pagination'
 import { TableSkeleton } from '@/components/Spinner'
+import { getUpdateClassDataService } from '@/service/localStorageService'
+import { Edit } from 'lucide-react'
+// import { updateClass } from '@/redux/slice/classSlice'
 
 const ClassDetails = () => {
-    const { allClasses, fetchClass, markClassAsComplete, generateNewClass, classForm, setClassForm, loading } = UseClassData();
+    const { allClasses, fetchClass, markClassAsComplete, generateNewClass, classForm, setClassForm, loading, handleOpenClassForm, updateClass } = UseClassData();
     const { classSearch, debouncing, getClassSearchValue, pages } = UseCommonData()
 
 
@@ -34,8 +37,8 @@ const ClassDetails = () => {
                     <CardContent className="smallsc1:p-6 p-4 pt-0 h-full flex flex-col">
                         <div className="flex items-center justify-between mb-4">
                             <div className='flex justify-between w-full'>
-                                <Input placeholder="Enter user Name " value={classSearch['classDetails']} className='w-fit' onChange={(e) => getClassSearchValue(e.target.value, 'classDetails')} />
-                                <Button className=' bg-white text-black hover:bg-gray-400 ' onClick={() => setClassForm(!classForm)}>
+                                <Input placeholder="Enter Class Name " value={classSearch['classDetails']} className='w-fit' onChange={(e) => getClassSearchValue(e.target.value, 'classDetails')} />
+                                <Button className=' bg-white text-black hover:bg-gray-400 ' onClick={() => handleOpenClassForm()}>
                                     Add Class +
                                 </Button>
                             </div>
@@ -79,13 +82,25 @@ const ClassDetails = () => {
                                                             {/* <div className="text-muted-foreground text-sm">{txn.email}</div> */}
                                                         </TableCell>
                                                         <TableCell>
-                                                            <div className=" text-end font-medium text-white ">
+                                                            <div className=" text-end font-medium text-white space-x-2 ">
+                                                                <Button className='bg-transparent outline-0' disabled={cls.status === 'complete'||cls.totalStudents>0} onClick={() => handleOpenClassForm(
+                                                                    {
+                                                                        className: cls.className,
+                                                                        id: cls._id,
+                                                                        time: cls.time,
+                                                                        trainer: cls.trainer._id
+                                                                    }
+                                                                )}>
+                                                                    <Edit className='h-20 w-20' />
+                                                                </Button>
+
+
                                                                 <ClassConformation
                                                                     classId={cls._id}
                                                                     className={cls.className}
                                                                     classTime={cls.time}
                                                                     classTrainer={cls.trainer.userName}
-                                                                    markComplete={markClassAsComplete}
+                                                                    markComplete={() => markClassAsComplete(cls._id)}
                                                                     status={cls.status}
                                                                 />
                                                             </div>
@@ -112,7 +127,7 @@ const ClassDetails = () => {
                 </Card>
             </div>
             {
-                classForm && <ClassForm setClassForm={setClassForm} generateClass={generateNewClass} />
+                classForm && <ClassForm setClassForm={setClassForm} generateClass={generateNewClass} updateClass={updateClass} getDefaultValues={getUpdateClassDataService} />
             }
         </div>
     )

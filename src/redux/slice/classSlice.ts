@@ -1,5 +1,5 @@
 
-import { addClassesAPI, assignStudentClassAPI, changeClassStatusAPI, getActiveClassesAPI, getClassesAPI, getClassesReferenceAPI, getOverviewDataAPI, getStudentsForClassAssignmentAPI } from '@/service/classApiService'
+import { addClassesAPI, assignStudentClassAPI, changeClassStatusAPI, getActiveClassesAPI, getClassesAPI, getClassesReferenceAPI, getOverviewDataAPI, getStudentsForClassAssignmentAPI, updateClassesAPI } from '@/service/classApiService'
 import type { ClassAssignmentDataType, ClassDataType, ClassInitialState, ClassParams, GetClassListResponse, GetClassResponse, GetOverviewResponse, GetSAssignClassResponse } from '@/types/ClassTyps'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { AxiosError } from 'axios'
@@ -64,6 +64,26 @@ export const addClass = createAsyncThunk<GetClassResponse, ClassDataType, { reje
         } catch (error) {
             const err = error as AxiosError<{ message: string }>
             return rejectWithValue(err.response?.data?.message || "Failed To Add Class!!")
+        }
+    })
+
+
+
+export const updateClassData = createAsyncThunk<GetClassResponse, ClassDataType, { rejectValue: string }>(
+    'updateClassData',
+    async (classData, { rejectWithValue }
+    ) => {
+        try {
+            const response = await updateClassesAPI(classData);
+
+            if (!response.success) {
+                return rejectWithValue(response.message)
+            }
+
+            return response
+        } catch (error) {
+            const err = error as AxiosError<{ message: string }>
+            return rejectWithValue(err.response?.data?.message || "Failed To Update Class!!")
         }
     })
 
@@ -150,7 +170,7 @@ const initialState: ClassInitialState = {
     classData: { className: "", trainer: '', time: '' },
     overviewdata: [],
     classAssignmentData: { classId: "", studentsId: [] },
-    availableStudents: []
+    availableStudents: null
     // assignClassData: { studentId: "", classId: "" }
 
 }
@@ -181,10 +201,10 @@ const classSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getClasses.fulfilled, (state, action) => {
-                 state.allClasses = action.payload?.result || []
+                state.allClasses = action.payload?.result || []
             })
             .addCase(getClassesReference.fulfilled, (state, action) => {
-                 state.allClasses = action.payload?.result || []
+                state.allClasses = action.payload?.result || []
             })
             .addCase(getActiveClasses.fulfilled, (state, action) => {
                 state.activeClasses = action.payload?.result || []
@@ -195,20 +215,28 @@ const classSlice = createSlice({
                 //     state.allClasses.push(action.payload.result)
                 // }
             })
+            .addCase(updateClassData.fulfilled, (state) => {
+                state.classData = { id: '', className: "", trainer: "", time: "" }
+                // if (action.payload?.result) {
+                //     state.allClasses.push(action.payload.result)
+                // }
+            })
             .addCase(getOverviewData.fulfilled, (state, action) => {
                 state.overviewdata = action.payload?.result || []
             })
             .addCase(assignStudentClass.fulfilled, (state, action) => {
-                const filterAvailableStudent = state.availableStudents.filter(
-                    student => !action.payload.result?.some(s => s._id === student._id)
-                )
+                const filterAvailableStudent =
+                    state.availableStudents?.filter(
+                        student => !action.payload.result?.some(s => s._id === student._id)
+                    )
 
-                state.availableStudents = filterAvailableStudent
+                state.availableStudents = filterAvailableStudent as []
                 state.classAssignmentData = { studentsId: [], classId: "" }
             })
             .addCase(getStudentForClassAssignment.fulfilled, (state, action) => {
                 state.availableStudents = action.payload.result || []
             })
+        // .addCase
         // .addCase(markCompleteClass.fulfilled, (state, action) => {
         //     // state.allClasses.forEach((classData) => {
         //     //     if (classData._id === action.payload.result?._id) {

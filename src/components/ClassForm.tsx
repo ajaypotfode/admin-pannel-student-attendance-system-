@@ -28,29 +28,30 @@ import UseUserData from "@/hooks/useUserData"
 // import { useState } from "react"
 import { X } from "lucide-react"
 import type { ClassDataType } from '@/types/ClassTyps'
-// import { SelectTrainer } from "./SelectTrainer"
-// import { ComboboxDemo } from './SelectBox'
 
 // const 
 interface ClassFormProps {
     setClassForm(value: boolean): void,
-    generateClass(value: ClassDataType, reset: () => void): void
+    generateClass: (value: ClassDataType, reset: () => void) => void
+    updateClass: (value: ClassDataType, reset: () => void) => void
+    getDefaultValues(): { className: string, time: string, trainer: string, id?: string }
 }
 
 
 
-const ClassForm: React.FC<ClassFormProps> = ({ setClassForm, generateClass }) => {
+const ClassForm: React.FC<ClassFormProps> = ({ setClassForm, generateClass, getDefaultValues, updateClass }) => {
     const { activeTrainer, fetchActiveTrainers, loading } = UseUserData()
-
+    const { className, time, trainer, id } = getDefaultValues()
 
     const form = useForm({
         resolver: zodResolver(ClassFormSchema),
         defaultValues: {
-            className: "",
-            time: "",
-            trainer: ""
-        },
+            className: className,
+            time: time,
+            trainer: trainer
+        }
     })
+
 
     return (
         // <Dialog >
@@ -71,7 +72,11 @@ const ClassForm: React.FC<ClassFormProps> = ({ setClassForm, generateClass }) =>
                 </div>
                 <h1>Add Clss Details</h1>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit((values) => generateClass(values, form.reset))} className="w-full space-y-6">
+                    <form onSubmit={form.handleSubmit(
+                        (values) => (
+                            id ? updateClass({ ...values, id: id }, form.reset) : generateClass(values, form.reset)
+                        )
+                    )} className="w-full space-y-6">
                         {/* <form className="w-full space-y-6"> */}
                         <FormField
                             control={form.control}

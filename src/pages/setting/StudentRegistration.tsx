@@ -1,6 +1,6 @@
 import { SelectInput } from '@/components/SelectInput'
 import { Button } from '@/components/ui/button'
-import { Card, CardFooter } from '@/components/ui/card'
+import { Card, CardFooter, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import UseRegistrationData from '@/hooks/useRegistrationData'
@@ -23,6 +23,10 @@ const StudentRegistration = () => {
             {/* <div className=' p-8 w-full border'> */}
             <div className="flex justify-center space-x-6 gap-6 p-5 py-8 w-full ">
                 <Card className="flex-1 bg-gray-900 border border-gray-500 text-white mx-auto rounded-xl relative overflow-hidden p-8 ">
+                    <CardHeader>
+                        <h1>Student Registartion Link :</h1>
+                        <p className='text-blue-800 underline '>https://admin-pannel-student-attendance-sys.vercel.app/student/register</p>
+                    </CardHeader>
                     <form action="">
                         <div className="grid gap-4">
                             <div className="grid gap-3 ">
@@ -75,8 +79,8 @@ const StudentRegistration = () => {
                                 {/* <Input id="username-1" name="username" defaultValue="@peduarte" /> */}
                             </div>
                             <div className='flex justify-between w-full'>
-                                {registrationData.registration === true && <Button className='w-fit' onClick={handleRegistrationStatus}  >Open Registration</Button>}
-                                {registrationData.registration === false && <Button className='w-fit' onClick={handleRegistrationStatus}  >close Registration</Button>}
+                                {registrationData.registration === true && <Button className='w-fit bg-white text-black hover:bg-gray-400 ' onClick={handleRegistrationStatus}  >Open Registration</Button>}
+                                {registrationData.registration === false && <Button className='w-fit bg-white text-black hover:bg-gray-400 ' onClick={handleRegistrationStatus}  >close Registration</Button>}
                                 {/* <Button className='w-fit' onClick={handleRegistrationStatus}  >{registrationData.registration === true ? "Open Registration" : "Close Registration"}</Button> */}
 
 

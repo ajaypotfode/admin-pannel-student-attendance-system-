@@ -1,4 +1,5 @@
 export type ClassDataType = {
+    id?:string,
     className: string,
     trainer: string,
     time: string
@@ -88,7 +89,7 @@ export interface ClassInitialState {
     classData: ClassDataType;
     overviewdata: Overviewdata | [];
     classAssignmentData: ClassAssignmentDataType,
-    availableStudents: AvailableUserType[]
+    availableStudents: AvailableUserType[] | null
 }
 
 

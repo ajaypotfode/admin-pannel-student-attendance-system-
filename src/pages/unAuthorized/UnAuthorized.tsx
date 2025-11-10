@@ -14,9 +14,9 @@ export default function UnauthorizedPage() {
         <p className="text-slate-400">
           Only <span className="text-red-400 font-semibold">Admin</span> can access this section.
         </p>
-       <Button className="p-3 text-sm border mt-2">
-         <Link to='/auth/login' className="">Go To Login</Link>
-       </Button>
+        <Button className="p-3 text-sm border mt-2 bg-white text-black hover:bg-gray-400 ">
+          <Link to='/auth/login' className="">Go To Login</Link>
+        </Button>
       </div>
     </div>
   );

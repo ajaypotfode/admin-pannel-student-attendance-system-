@@ -10,6 +10,12 @@ export type AttendenceParams2 = {
     classId?: string
 }
 
+export type AttendenceParams = {
+    classId?: string;
+    date?: string;
+    pageNum?: number;
+}
+
 
 interface CommonResponse {
     message: string,
@@ -49,11 +55,11 @@ export interface SummaryEntry {
     present: boolean;
 }
 
-export interface Session {
+export interface StudentAttendance<T> {
     _id: string;
     studentId: Student;
     classId: Class;
-    summary: SummaryEntry[];
+    summary: T;
     __v: number;
 }
 
@@ -64,9 +70,12 @@ export interface TotalClassStats {
 }
 
 
-
 export interface GetAttendenceResponse extends CommonResponse {
-    result?: AttendenceType<Class>
+    result?: {
+        attendendStudents: StudentAttendance<SummaryEntry>[];
+        totalAttendence: AttendenceType<string> | null
+    }
+    pages: { pageNum: number, totalPages: number }
 }
 
 export interface GetAttendenceListResponse extends CommonResponse {
@@ -76,7 +85,7 @@ export interface GetAttendenceListResponse extends CommonResponse {
 
 export interface GetAttendenceSummaryResponse extends CommonResponse {
     result?: {
-        sessions: Session;
+        sessions: StudentAttendance<SummaryEntry[]>;
         totalClass: TotalClassStats;
     };
     pages?: {
@@ -85,19 +94,66 @@ export interface GetAttendenceSummaryResponse extends CommonResponse {
     };
 }
 
+// export type MarkAttendence
+
+
+export type AllStudentType = {
+    _id: string,
+    userName: string,
+    role: string,
+    email: string,
+    contactNo: string,
+    status: string
+}
+
+export type AllStudentsParams = {
+    search?: string,
+    pageNum?: number,
+    classId?: string
+}
+
+export interface GetClassStudentsResponse extends CommonResponse {
+    result?: AllStudentType[],
+    pages?: {
+        pageNum: number,
+        totalPages: number
+    }
+}
+
+
+export interface MarkAttendenceParams {
+    classId: string,
+    studentIds: string[]
+}
+
+export interface MarkAttendenceResponse extends CommonResponse {
+    result?: AllStudentType[],
+    pages?: {
+        pageNum: number,
+        totalPages: number
+    }
+}
+
+
 
 export interface AttendenceInitialState {
     attendenceSummary: {
-        sessions: Session;
+        sessions: StudentAttendance<SummaryEntry[]>;
         totalClass: TotalClassStats;
         // totalPages: number;
         // pageNum: number;
     } | null;
+    attendanceData: {
+        attendendStudents: StudentAttendance<SummaryEntry>[];
+        totalAttendence: AttendenceType<string>|null;
+    }
     todaysAttendence: AttendenceType<Class> | null;
     weekAttendence: AttendenceType<string>[];
+    attendenceParams: { classId: string, date: string, customeDate?: string }
     summaryParams: { endDate: string, startDate: string };
-    attendenceHistoryParams: { email: string,classId:string },
-    currentAttendenceClass: null | string
+    // attendanceParams: { classId: string, date: string };
+    attendenceHistoryParams: { email: string, classId: string };
+    // currentAttendenceClass: null | string;
+    allClassStudents: AllStudentType[] | null;
+    dataForMarkAttendence: MarkAttendenceParams;
 }
-
-

@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHook"
 // import { setCurrentClass } from "@/redux/slice/commonSlice";
-import { handleAttendenceSummary, qrVerify, setCurrentQrClass } from "@/redux/slice/qrSlice";
+import { closeClass, handleAttendenceSummary, qrVerify, setCurrentQrClass } from "@/redux/slice/qrSlice";
+import { getClassIdService, setClassIdService } from "@/service/localStorageService";
 
 
 const UseQrData = () => {
@@ -13,14 +14,25 @@ const UseQrData = () => {
     // }
 
     const getQrVerify = (qrdata: string) => {
-        dispatch(qrVerify({ qrdata, classId: currentQrClass }))
+        dispatch(qrVerify({ qrdata, classId: getClassIdService('qrClassId') }))
     }
 
     const addAttendenceSummary = (classId: string) => {
         dispatch(handleAttendenceSummary(classId))
         dispatch(setCurrentQrClass(classId))
+        setClassIdService(classId, 'qrClassId')
         // dispatch(setCurrentClass({ classId, page }))
     }
+
+    const handleCloseClass = async () => {
+        const response = await dispatch(closeClass(getClassIdService('qrClassId'))).unwrap();
+        if (response.success) {
+            // dispatch()
+            setClassIdService('', 'qrClassId')
+        }
+    }
+
+    // const handleCloseClass
 
     return {
         studentData,
@@ -29,7 +41,8 @@ const UseQrData = () => {
         addAttendenceSummary,
         loading,
         error,
-        currentQrClass
+        currentQrClass,
+        handleCloseClass
         // getClassDetails
     }
 }

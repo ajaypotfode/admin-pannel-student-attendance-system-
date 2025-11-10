@@ -113,6 +113,31 @@ export const addClassesAPI = async (classData: ClassDataType): Promise<GetClassR
 }
 
 
+export const updateClassesAPI = async (classData: ClassDataType): Promise<GetClassResponse> => {
+    const data = JSON.stringify(classData)
+
+    try {
+        const response = await axios.post<GetClassResponse>(
+            `${import.meta.env.VITE_BASE_URL}/class/update-class`,
+            data,
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': "application/json",
+                    // 'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error);
+        throw error
+
+    }
+}
+
+
 export const changeClassStatusAPI = async (classId: string): Promise<GetClassResponse> => {
     const data = JSON.stringify({ classId })
 

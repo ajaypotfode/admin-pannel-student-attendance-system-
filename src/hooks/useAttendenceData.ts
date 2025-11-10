@@ -1,28 +1,59 @@
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHook"
-import { getAttendenceSummary, getTodaysAttendence, getWeeklyAttendence, setAttendenceHistoryParams, setCurrentAttendenceClass, setSummaryParams } from "@/redux/slice/attendenceSlice"
+import { getAllClassStudents, getAttendenceSummary, getAttendence, getWeeklyAttendence, markAttendence, setAttendenceHistoryParams, setClassId, setStudentsId, setSummaryParams, setAttendenceParams } from "@/redux/slice/attendenceSlice"
+import { handleAttendenceSummary } from "@/redux/slice/qrSlice";
+import { getClassIdService, setClassIdService } from "@/service/localStorageService";
 // import { setCurrentClass } from "@/redux/slice/commonSlice";
 // import type { AttendenceParams1, AttendenceParams2 } from "@/types/AttendenceType"
 import { format } from 'date-fns'
 import { toast } from "react-toastify";
 
 const UseAttendenceData = () => {
-    const { attendenceSummary, todaysAttendence, weekAttendence, summaryParams, attendenceHistoryParams, currentAttendenceClass } = useAppSelector(state => state.attendance);
-    const { loading, error } = useAppSelector(state => state.common)
+    const { attendenceSummary,
+        todaysAttendence,
+        weekAttendence,
+        summaryParams,
+        attendenceParams,
+        attendanceData,
+        attendenceHistoryParams,
+        // currentAttendenceClass,
+        dataForMarkAttendence,
+        allClassStudents } = useAppSelector(state => state.attendance);
+    const { loading, error, pages } = useAppSelector(state => state.common)
     const dispatch = useAppDispatch()
 
 
-    const fetchTodaysAttendence = (classId: string) => {
-        dispatch(setCurrentAttendenceClass(classId))
-        // dispatch(setCurrentClass({ classId, page }))
-        dispatch(getTodaysAttendence(classId))
+    const fetchAttendence = ({ pageNum }: { pageNum?: number }) => {
+        // dispatch(getTodaysAttendence(classId))
+        if (!attendenceParams.classId || !attendenceParams.date || attendenceParams.date === 'customeDate') {
+            toast.error(`Please Add ${!attendenceParams.classId ? "Class Id" : "Date"} `)
+            return
+        }
+
+        dispatch(getAttendence({
+            classId: attendenceParams.classId,
+            date: attendenceParams.customeDate ? attendenceParams.customeDate : attendenceParams.date,
+            pageNum: pageNum
+        }))
+
+    }
+
+    const getAttendenceParams = (value: string, name?: string) => {
+        if (name === 'classId') {
+            dispatch(setAttendenceParams({ ...attendenceParams, classId: value }))
+            console.log("classId  :", value)
+            // updatedparams.classId = value
+        } else if (name === 'customeDate') {
+            dispatch(setAttendenceParams({ ...attendenceParams, customeDate: value }))
+        } else {
+            dispatch(setAttendenceParams({ ...attendenceParams, date: value, customeDate: '' }))
+            // console.log("today or yesterday  :", value);
+        }
+        // dispatch(setAttendenceParams({ ...updatedparams }))
     }
 
 
 
     const fetchWeeklyAttendence = (value: string, name: string) => {
-        // const { name, value } = e.target
-
-        // dispatch(setSummaryParams({ ...summaryParams, [name]: value }));
         dispatch(getWeeklyAttendence({ ...summaryParams, [name]: value }))
     }
 
@@ -39,17 +70,10 @@ const UseAttendenceData = () => {
         dispatch(setSummaryParams({ ...summaryParams, endDate, startDate }))
     }
 
-    // const fetchWeeklyAttendence = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault()
-    //     // console.log(summaryParams);
 
-    //     dispatch(getWeeklyAttendence(summaryParams))
-    // }
+    const fetchStudentAttendenceSummary = ({ pageNum }: { pageNum?: number }) => {
 
-
-    const fetchStudentAttendenceSummary = ({pageNum}:{pageNum?:number}) => {
-
-        dispatch(getAttendenceSummary({ ...attendenceHistoryParams,pageNum }))
+        dispatch(getAttendenceSummary({ ...attendenceHistoryParams, pageNum }))
     }
 
     // const fetchAtte
@@ -68,21 +92,59 @@ const UseAttendenceData = () => {
     }
 
 
+    const fetchAllClassStudents = ({ search, pageNum }: { search?: string, pageNum?: number }) => {
+        dispatch(getAllClassStudents({
+            classId: getClassIdService('markAttendence') as string,
+            pageNum: pageNum,
+            search
+        }))
+    }
+
+
+    const getDataForAttendence = (value: string, name?: string) => {
+        if (name === 'classId') {
+            dispatch(setClassId({ ...dataForMarkAttendence, classId: value }))
+            // getAvailableStudents({ classId: value })
+            setClassIdService(value, 'markAttendence')
+            dispatch(handleAttendenceSummary(value))
+            dispatch(getAllClassStudents({ classId: value }))
+
+        }
+        else {
+            dispatch(setStudentsId(value))
+
+        }
+    }
+
+    const markStudentAttendence = () => {
+        dispatch(markAttendence(dataForMarkAttendence))
+    }
+
     return {
         attendenceSummary,
         todaysAttendence,
         weekAttendence,
-        fetchTodaysAttendence,
+        fetchAttendence,
         fetchWeeklyAttendence,
         fetchStudentAttendenceSummary,
-        currentAttendenceClass,
+        getAttendenceParams,
+        attendenceParams,
+        attendanceData,
         loading,
         error,
+        pages,
         // getClassId,
         handleDateRange,
         summaryParams,
         getAttendenceHistoryParams,
         attendenceHistoryParams,
+        fetchAllClassStudents,
+        getDataForAttendence,
+        allClassStudents,
+        dataForMarkAttendence,
+        markStudentAttendence
+
+
     }
 }
 

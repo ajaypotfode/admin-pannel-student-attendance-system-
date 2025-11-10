@@ -9,21 +9,16 @@ import {
     Users,
     // Upload,
     History,
-    UserCheck,
-    // ShieldCheck,
-    Settings,
-    // QrCode,
     Bell,
     LogOut,
     SidebarClose,
     UserRoundPen,
-    BookOpenText,
     LayoutList,
-    UserPlus2,
     Users2,
     UserCircle,
     BookOpenCheckIcon,
     NotebookPenIcon,
+    ScanLine,
     // SidebarIcon,
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -42,6 +37,7 @@ const sidebarGroups = [
     {
         group: "Attendance",
         items: [
+            { label: "Scanner", icon: ScanLine, path: "/attendance/scanner" },
             { label: "Mark Attendance", icon: CalendarCheck, path: "/attendance/mark" },
             { label: "View Attendance", icon: ClipboardList, path: "/attendance/view" },
             { label: "Weekly Summary", icon: CalendarRange, path: "/attendance/summary" },
@@ -73,7 +69,7 @@ const sidebarGroups = [
         items: [
             { label: "User Management", icon: UserRoundPen, path: "/settings/users" },
             { label: "Class Management", icon: LayoutList, path: "/settings/classes" },
-            { label: "Registration", icon:NotebookPenIcon, path: "/settings/registration" },
+            { label: "Registration", icon: NotebookPenIcon, path: "/settings/registration" },
             // { label: "QR Code Settings", icon: QrCode, path: "/settings/qr" },
             { label: "Notifications", icon: Bell, path: "/settings/notification" },
         ]

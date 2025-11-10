@@ -7,7 +7,7 @@ import Trainers from '../pages/faculty/Trainers'
 import ViewAttendence from '../pages/attendence/ViewAttendence'
 import WeeklyAttendence from '../pages/attendence/WeeklyAttendence'
 import StudentList from '../pages/students/StudentList'
-import MarkAttendence from '../pages/attendence/MarkAttendence'
+import ScanAttendance from '../pages/attendence/ScanAttendance'
 import AttendenceSummary from '../pages/students/AttendenceSummary'
 import AssignClass from '../pages/students/AssignClass'
 import ChangeUserStatus from '../pages/setting/ChangeUserStatus'
@@ -20,6 +20,7 @@ import StudentRegistration from '@/pages/setting/StudentRegistration'
 import RegistrationForm from '@/pages/students/RegistrationForm'
 import PublicRoutes from './PublicRoutes'
 import UnauthorizedPage from '@/pages/unAuthorized/UnAuthorized'
+import MarkAttendence from '@/pages/attendence/MarkAttendence'
 // import { useEffect } from 'react'
 // import ProtectedRoutes from './ProtectedRoutes'
 
@@ -39,7 +40,7 @@ const AppRoutes = () => {
         <Route path='/auth/signup' element={<Signup />} />
       </Route>
       <Route path='/student/register' element={<RegistrationForm />} />
-      <Route path='/unauthorized' element={<UnauthorizedPage/>}/>
+      <Route path='/unauthorized' element={<UnauthorizedPage />} />
       <Route element={<ProtectedRoutes />}>
         <Route element={<CommonLayout />}>
           <Route path='/' element={<Navigate to='/dashboard' />} />
@@ -51,6 +52,7 @@ const AppRoutes = () => {
           <Route path='/faculty/add' element={<AddTrainers />} />
           <Route path='/attendance/view' element={<ViewAttendence />} />
           <Route path='/attendance/summary' element={<WeeklyAttendence />} />
+          <Route path='/attendance/scanner' element={<ScanAttendance />} />
           <Route path='/attendance/mark' element={<MarkAttendence />} />
           <Route path='/students/list' element={<StudentList />} />
           <Route path='/students/summary' element={<AttendenceSummary />} />

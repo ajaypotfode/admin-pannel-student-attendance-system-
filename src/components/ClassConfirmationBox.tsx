@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button"
 
 interface ClassConformationProps {
-    markComplete(classId: string): void,
+    markComplete(): void,
     className: string,
     classTime: string,
     classTrainer: string,
@@ -20,17 +20,11 @@ interface ClassConformationProps {
     status: string
 }
 
-export const ClassConformation: React.FC<ClassConformationProps> = ({ markComplete, className, classTime, classId, classTrainer, status }) => {
+export const ClassConformation: React.FC<ClassConformationProps> = ({ markComplete, className, classTime, classTrainer, status }) => {
     return (
         <AlertDialog >
             <AlertDialogTrigger asChild>
-                {
-                    status === 'active'
-                        ? <Button className="text-[12px] border-none hover:bg-transparent-bg-gray-700 hover:text-white p-2 bg-gray-700 " variant="outline">Mark Complete</Button>
-                        : <Button className="text-[12px] border-none hover:bg-transparent-bg-gray-700 hover:text-white p-2 bg-gray-700 " disabled variant="outline">Mark Complete</Button>
-
-
-                }
+                <Button className="text-[12px] border-none hover:bg-transparent-bg-gray-700 hover:text-white p-2 bg-gray-700 " disabled={status === 'complete'} variant="outline">Mark Complete</Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="bg-gray-900">
                 <AlertDialogHeader>
@@ -54,7 +48,7 @@ export const ClassConformation: React.FC<ClassConformationProps> = ({ markComple
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel className="text-[12px] p-2">Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => markComplete(classId)} className="text-[12px] p-2 bg-gray-700 text-white hover:text-white hover:bg-gray-700">Continue</AlertDialogAction>
+                    <AlertDialogAction onClick={markComplete} className="text-[12px] p-2 bg-gray-700 text-white hover:text-white hover:bg-gray-700">Continue</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

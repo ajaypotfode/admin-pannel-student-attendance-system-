@@ -25,7 +25,7 @@ const ClassDetailsTable: React.FC<ClassProps> = ({ allClass, loading }) => {
                         </p>
                     </div>
                     <Link to='/settings/classes' >
-                    <Button variant='outline'  className="xl:text-sm text-[12px]  bg-white text-black hover:bg-gray-400">View All</Button>
+                        <Button variant='outline' className="xl:text-sm text-[12px]  bg-white text-black hover:bg-gray-400">View All</Button>
                     </Link>
                 </div>
 

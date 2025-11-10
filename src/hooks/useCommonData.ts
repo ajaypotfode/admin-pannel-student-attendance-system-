@@ -40,6 +40,18 @@ const UseCommonData = () => {
     }
 
 
+    // const setDataInLocalStorage = (data: any, variable: string) => {
+    //     const jsondata = JSON.stringify(data);
+    //     localStorage.setItem(variable, jsondata)
+    // }
+
+
+    // const getDataFromLocalStorage = (variable: string) => {
+    //     const jsonData = localStorage.getItem(variable);
+    //     if (jsonData) {
+    //         return JSON.parse(jsonData)
+    //     }
+    // }
 
     return {
         debouncing,
@@ -49,7 +61,9 @@ const UseCommonData = () => {
         getClassSearchValue,
         sidebar,
         handleSidebar,
-        pages
+        pages,
+        // setDataInLocalStorage,
+        // getDataFromLocalStorage
     }
 }
 

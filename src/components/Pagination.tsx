@@ -11,7 +11,7 @@ import {
 interface PaginationProps {
     pageNum: number,
     totalPage: number,
-    getNextPage({ pageNum }: { pageNum?: number }): void
+    getNextPage({ pageNum }: { pageNum?: number, search?: string }): void
 }
 
 export const PaginationComponent: React.FC<PaginationProps> = ({ pageNum, totalPage, getNextPage }) => {
@@ -21,7 +21,7 @@ export const PaginationComponent: React.FC<PaginationProps> = ({ pageNum, totalP
             <PaginationContent>
                 <PaginationItem>
                     {
-                        (pageNum >1) && <PaginationPrevious
+                        (pageNum > 1) && <PaginationPrevious
                             className="bg-transparent border-0 hover:text-gray-500 text-white hover:bg-transparent focus-visible:ring-0 focus-visible:outline-none cursor-pointer"
                             size="sm"
                             onClickCapture={() => getNextPage({ pageNum: pageNum - 1 })}

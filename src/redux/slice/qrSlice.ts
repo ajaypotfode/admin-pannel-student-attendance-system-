@@ -1,6 +1,6 @@
 
-import { addAttendenceSummaryAPI, verifyQrAPI } from '@/service/qrApiService'
-import type { CommonResponse, QrInitialState, QrVerifyResponse } from '@/types/QrType'
+import { addAttendenceSummaryAPI, closeClassAPI, verifyQrAPI } from '@/service/qrApiService'
+import type { CloseClassResponse, CommonResponse, QrInitialState, QrVerifyResponse } from '@/types/QrType'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { AxiosError } from 'axios'
 
@@ -19,6 +19,21 @@ export const qrVerify = createAsyncThunk<QrVerifyResponse, { qrdata: string, cla
         } catch (error) {
             const err = error as AxiosError<{ message: string }>
             return rejectWithValue(err.response?.data?.message || "Failed To Scan QR!!")
+        }
+    })
+
+
+export const closeClass = createAsyncThunk<CloseClassResponse, string, { rejectValue: string }>(
+    'closeClass',
+    async (classId, { rejectWithValue }
+    ) => {
+        try {
+            const response = await closeClassAPI(classId)
+
+            return response
+        } catch (error) {
+            const err = error as AxiosError<{ message: string }>
+            return rejectWithValue(err.response?.data?.message || "Failed To Close Class!!")
         }
     })
 

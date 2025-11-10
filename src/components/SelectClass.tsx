@@ -85,7 +85,7 @@ export const SelectClass: React.FC<ComboBoxProps> = ({ classData, fetchData, get
                       {classData.map((cls) => (
                         < CommandItem
                           key={cls._id}
-                          value={cls.className}
+                          value={`${cls.className}-${cls.time}`}
                           onSelect={() => {
                             setValue(cls._id)
                             setOpen(false)

@@ -51,7 +51,7 @@ const Trainers = () => {
                                             </TableHeader>
                                             <TableBody>
                                                 {allTrainers.map((trainer, index) => (
-                                                    <TableRow key={index} onClick={() => fetchTrainer(trainer._id)} >
+                                                    <TableRow key={index} onClick={() => fetchTrainer(trainer._id)} className='cursor-pointer' >
                                                         <TableCell>
                                                             <div className="font-medium text-white">{trainer.userName}</div>
                                                             <div className="text-muted-foreground text-sm">{trainer.email}</div>
