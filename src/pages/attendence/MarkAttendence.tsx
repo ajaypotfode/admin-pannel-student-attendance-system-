@@ -51,7 +51,7 @@ const MarkAttendence = () => {
                                          Please verify the Students list before proceeding.`}
                                     heading='Confirm Students'
                                     enableButton={dataForMarkAttendence.studentIds.length === 0}
-                                    buttonText='Mark Attrndence'
+                                    buttonText='Mark Attendance'
                                     clickConfirm={markStudentAttendence}
                                 />
 
