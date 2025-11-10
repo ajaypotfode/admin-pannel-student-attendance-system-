@@ -87,3 +87,13 @@ If you go to /, the server finds index.html → ✅ works.
 If you refresh /dashboard, the server looks for a file at /dashboard/index.html → ❌ file not found → 404 error.
 
 This rewrite ensures React + Vite SPA routes work after refresh. Without it, refreshing /dashboard or any nested route would give a 404.",
+
+
+
+
+
+<!-- ADMIN REGISTRATION TOKEN IS-->
+
+CODER_ORG_ADMIN
+
+During the admin registration process, the system first requires an admin registration token. Only after entering this token will the admin registration form be accessible. This mechanism helps prevent unauthorized or unnecessary admin registrations. The token is provided by the organization.
