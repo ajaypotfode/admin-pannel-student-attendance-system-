@@ -80,7 +80,9 @@ const Sidebar = () => {
     const { getUserLogout, user } = UseAuth();
     const { handleSidebar, sidebar } = UseCommonData()
     return (
-        <div className={`min-h-screen sidebar 2xl:w-60 xl:w-48 w-60 text-[] pr-0 pt-2 inline-block  transform  transition-transform duration-300 ease-in-out relative z-10  xl:bg-transparent xl:border-0 border-r  border-gray-600 bg-gray-800 xl:shadow-transparent  shadow-2xl shadow-black  ${sidebar ? "" : "inActive"} `}>
+        <div className={`min-h-screen sidebar 2xl:w-60 xl:w-48 w-60 text-[] pr-0 pt-2 inline-block 
+         transform  transition-transform duration-300 ease-in-out relative z-10  xl:bg-transparent xl:border-0 border-r  border-gray-600
+          bg-gray-800 xl:shadow-transparent  shadow-2xl shadow-black  ${sidebar ? "" : "inActive"} `}>
             <div className=" w-full text-white  border-gray-500 flex relative" >
                 <div
 
@@ -112,6 +114,7 @@ const Sidebar = () => {
                                     <li key={idx}>
                                         <NavLink
                                             to={item.path}
+                                            onClick={handleSidebar}
                                             className={({ isActive }) =>
                                                 `flex items-center gap-2 px-3 py-2 rounded-md smallsc1:text-sm text-[12px] text-white
                                                ${isActive ? "bg-gradient-to-bl from-gray-900 from-10% to-blue-950 to-60%" : ""}`

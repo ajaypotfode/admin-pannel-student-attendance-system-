@@ -1,7 +1,7 @@
 import { ClassCard } from '@/components/ClassCard';
 // import ProfileCard from '@/components/ProfileCard';
 import QrScanner from '@/components/QrScanner';
-import { Card, CardContent, CardDescription,CardHeader, CardTitle } from "../../components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import UseQrData from '@/hooks/useQrData';
 import UseClassData from '@/hooks/useClassData';
 import { useEffect } from 'react';
@@ -108,14 +108,14 @@ const ScanAttendance = () => {
                                 </Card>
                             )
                     }
-                    {currentClassId !== '' && <div>
+                    {currentClassId !== '' && currentClassId !== undefined && <div>
                         {/* <Button className='bg-white text-black' onClick={handleCloseClass}>
                             Close Class
                         </Button> */}
                         <ConformationDialog
                             text='You Want to Close This Class'
                             heading='Confirm Close Class'
-                            enableButton={currentClassId === ''}
+                            enableButton={currentClassId === '' || !currentClassId}
                             clickConfirm={() => handleCloseClass()}
                             buttonText='Close Class'
                         />

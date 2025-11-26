@@ -17,18 +17,19 @@ const UseQrData = () => {
         dispatch(qrVerify({ qrdata, classId: getClassIdService('qrClassId') }))
     }
 
-    const addAttendenceSummary = (classId: string) => {
-        dispatch(handleAttendenceSummary(classId))
-        dispatch(setCurrentQrClass(classId))
-        setClassIdService(classId, 'qrClassId')
+    const addAttendenceSummary = async (classId: string) => {
+        const response = await dispatch(handleAttendenceSummary(classId)).unwrap()
+        if (response.success) {
+            dispatch(setCurrentQrClass(classId))
+            setClassIdService({ classId: classId, variable: 'qrClassId' })
+        }
         // dispatch(setCurrentClass({ classId, page }))
     }
 
     const handleCloseClass = async () => {
         const response = await dispatch(closeClass(getClassIdService('qrClassId'))).unwrap();
         if (response.success) {
-            // dispatch()
-            setClassIdService('', 'qrClassId')
+            setClassIdService({ classId: '', variable: 'qrClassId' })
         }
     }
 

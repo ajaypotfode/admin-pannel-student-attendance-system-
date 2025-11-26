@@ -23,9 +23,12 @@ const UseAttendenceData = () => {
 
 
     const fetchAttendence = ({ pageNum }: { pageNum?: number }) => {
-        // dispatch(getTodaysAttendence(classId))
-        if (!attendenceParams.classId || !attendenceParams.date || attendenceParams.date === 'customeDate') {
-            toast.error(`Please Add ${!attendenceParams.classId ? "Class Id" : "Date"} `)
+if (!attendenceParams.classId) {
+            toast.error(`Please Add Class Id `)
+            return
+        }
+        if (attendenceParams.customeDate === '' && attendenceParams.date === 'customeDate') {
+            toast.error(`Please Add Date`)
             return
         }
 
@@ -40,8 +43,6 @@ const UseAttendenceData = () => {
     const getAttendenceParams = (value: string, name?: string) => {
         if (name === 'classId') {
             dispatch(setAttendenceParams({ ...attendenceParams, classId: value }))
-            console.log("classId  :", value)
-            // updatedparams.classId = value
         } else if (name === 'customeDate') {
             dispatch(setAttendenceParams({ ...attendenceParams, customeDate: value }))
         } else {
@@ -105,7 +106,7 @@ const UseAttendenceData = () => {
         if (name === 'classId') {
             dispatch(setClassId({ ...dataForMarkAttendence, classId: value }))
             // getAvailableStudents({ classId: value })
-            setClassIdService(value, 'markAttendence')
+            setClassIdService({ classId: value, variable: 'markAttendence' })
             dispatch(handleAttendenceSummary(value))
             dispatch(getAllClassStudents({ classId: value }))
             dispatch(setStudentsId([]))
@@ -123,8 +124,12 @@ const UseAttendenceData = () => {
         }
     }
 
-    const markStudentAttendence = () => {
-        dispatch(markAttendence(dataForMarkAttendence))
+    const markStudentAttendence = async () => {
+        const response = await dispatch(markAttendence(dataForMarkAttendence)).unwrap();
+        if (response.success) {
+            setClassIdService({ classId: '', variable: 'markAttendence' })
+            setClassIdService({ classId: '', variable: 'qrClassId' })
+        }
     }
 
     return {

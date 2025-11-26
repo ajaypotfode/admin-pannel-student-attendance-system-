@@ -87,9 +87,12 @@ const UseClassData = () => {
     }
 
 
-    const assignClassToStudent = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const assignClassToStudent = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        dispatch(assignStudentClass(classAssignmentData))
+        const response = await dispatch(assignStudentClass(classAssignmentData)).unwrap();
+        if (response.success) {
+            setClassIdService({ classId: '', variable: 'assignClass' })
+        }
 
     }
 
@@ -108,7 +111,7 @@ const UseClassData = () => {
         if (name === 'classId') {
             dispatch(setClassId({ ...classAssignmentData, classId: value }))
             // getAvailableStudents({ classId: value })
-            setClassIdService(value, 'assignClass')
+            setClassIdService({ classId: value, variable: 'assignClass' })
             dispatch(getStudentForClassAssignment({ classId: value }))
             dispatch(setStudentsId([]))
         }

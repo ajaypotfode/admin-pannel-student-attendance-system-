@@ -1,9 +1,13 @@
 
-export const setClassIdService = (classId: string, variable: string) => {
+export const setClassIdService = ({classId,variable}:{classId?: string, variable?: string}) => {
     const jsonData = localStorage.getItem('classId');
     const classData: { [key: string]: string } = jsonData ? JSON.parse(jsonData) : {};
-    classData[variable] = classId;
-    localStorage.setItem('classId', JSON.stringify(classData));
+    if (classId && variable) {
+        classData[variable] = classId;
+        localStorage.setItem('classId', JSON.stringify(classData));
+    } else {
+        localStorage.setItem('classId', JSON.stringify({}));
+    }
 
 }
 
@@ -15,7 +19,7 @@ export const getClassIdService = (variable: string) => {
 }
 
 
-export const setUpdateClassDataService = (classData: { id?: string, className: string, trainer: string, time: string }) => {
+export const setUpdateClassDataService = (classData: { id?: string, className?: string, trainer?: string, time?: string }) => {
     localStorage.setItem('classData', JSON.stringify(classData));
 }
 

@@ -3,6 +3,7 @@ import { adminVerifyToken, loginUser, logoutUser, signupUser, studentRegistratio
 import { type LoginFormType, type RegisterFormType } from '../schema/authFormSchema'
 import { toast } from "react-toastify"
 import { useRef } from "react"
+import { setClassIdService, setUpdateClassDataService } from "@/service/localStorageService"
 // import { Route } from "react-router-dom"
 // import type { UseFormReturn } from "react-hook-form"
 
@@ -19,6 +20,8 @@ const UseAuth = () => {
         if (response.success) {
             reset()
             window.location.href = '/'
+            setClassIdService({});
+            setUpdateClassDataService({});
             // localStorage.setItem('token', JSON.stringify(response.token))
         }
     }
