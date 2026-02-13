@@ -1,5 +1,5 @@
 
-import { Card,CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import type { TrainerResult } from "@/types/UserTypes"
 import type React from "react"
 
@@ -13,7 +13,11 @@ const TrainerProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
         <Card className="flex-1 h-full bg-gray-900 border border-gray-500 text-white overflow-y-auto scrollbar-hidden">
             <CardHeader className="flex justify-center flex-col items-center">
 
-                <div className="smallsc1:h-52 xl:h-40 h-32 smallsc1:w-52 xl:w-40 w-32 border border-red-500 rounded-full"></div>
+                <img
+                    src={user?.image}
+                    alt="profile-picture"
+                    className={`smallsc1:h-52 xl:h-40 h-32 smallsc1:w-52 xl:w-40 w-32 rounded-full ${!user?.image ? 'border border-gray-300' : ""} `}
+                />
 
                 <CardTitle className="smallsc1:text-2xl xl:text-xl text-lg ">{user?.userName}</CardTitle>
                 <CardDescription>

@@ -84,7 +84,9 @@ const Login = () => {
                                                         </FormItem>
                                                     )}
                                                 />
-                                                <Button type="submit" className="bg-white text-black hover:bg-gray-400">Submit</Button>
+                                                <Button
+                                                 type="submit"
+                                                  className="bg-white text-black hover:bg-gray-400">Submit</Button>
                                             </form>
                                         </Form>
                                     </CardContent>

@@ -29,33 +29,6 @@ const StudentRegistration = () => {
                     </CardHeader>
                     <form action="">
                         <div className="grid gap-4">
-                            <div className="grid gap-3 ">
-                                <Label htmlFor="date">Choose Closing Date</Label>
-
-                                {
-                                    loading['getRegistrationStatus'] ? <Skeleton className='w-[40%] h-5 bg-gray-600 ' />
-                                        : (<Input
-                                            id="date"
-                                            type='date'
-                                            name='date'
-                                            className='border border-gray-500  w-[40%]'
-                                            value={registrationData.date || ""}
-                                            //  defaultValue={'2025-03-14'} 
-                                            onChange={getRegistrationData}
-                                        />)
-                                }
-                            </div>
-                            <div className="grid gap-3 ">
-                                <Label htmlFor="time">Choose Closing Time</Label>
-                                {loading['getRegistrationStatus'] ? <Skeleton className='w-[40%] h-5 bg-gray-600 ' />
-                                    : (<Input
-                                        id="time"
-                                        type='time'
-                                        name='time'
-                                        className='border border-gray-500  w-[40%]'
-                                        value={registrationData.time}
-                                        onChange={getRegistrationData} />)}
-                            </div>
                             <div className="grid gap-3 w-[40%]">
                                 <Label htmlFor="username-1">Select Status</Label>
                                 {/* <Skeleton className='w-[40%] h-5 bg-gray-600 ' /> */}
@@ -77,6 +50,35 @@ const StudentRegistration = () => {
                                     />)}
                                 {/* <ComboboxDemo /> */}
                                 {/* <Input id="username-1" name="username" defaultValue="@peduarte" /> */}
+                            </div>
+                            <div className="grid gap-3 ">
+                                <Label htmlFor="date">Choose Closing Date</Label>
+
+                                {
+                                    loading['getRegistrationStatus'] ? <Skeleton className='w-[40%] h-5 bg-gray-600 ' />
+                                        : (<Input
+                                            id="date"
+                                            type='date'
+                                            name='date'
+                                            className='border border-gray-500  w-[40%]'
+                                            value={registrationData.date || ""}
+                                            disabled={!registrationData.registration}
+                                            //  defaultValue={'2025-03-14'} 
+                                            onChange={getRegistrationData}
+                                        />)
+                                }
+                            </div>
+                            <div className="grid gap-3 ">
+                                <Label htmlFor="time">Choose Closing Time</Label>
+                                {loading['getRegistrationStatus'] ? <Skeleton className='w-[40%] h-5 bg-gray-600 ' />
+                                    : (<Input
+                                        id="time"
+                                        type='time'
+                                        name='time'
+                                        className='border border-gray-500  w-[40%]'
+                                        value={registrationData.time}
+                                        disabled={!registrationData.registration}
+                                        onChange={getRegistrationData} />)}
                             </div>
                             <div className='flex justify-between w-full'>
                                 {registrationData.registration === true && <Button className='w-fit bg-white text-black hover:bg-gray-400 ' onClick={handleRegistrationStatus}  >Open Registration</Button>}

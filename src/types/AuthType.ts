@@ -81,6 +81,7 @@ export interface InitialStateType {
         userId: string,
         userName: string,
         image: string
-    } | null
+    } | null;
+    image:null|string
 }
 

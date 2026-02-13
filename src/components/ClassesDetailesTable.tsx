@@ -21,7 +21,7 @@ const ClassDetailsTable: React.FC<ClassProps> = ({ allClass, loading }) => {
                     <div>
                         <h2 className="smallsc1:text-lg text-md font-semibold">All Classes</h2>
                         <p className="text-sm text-muted-foreground">
-                            All Classes Which is held By Our Organization
+                            All Classes Which are held By Our Organization
                         </p>
                     </div>
                     <Link to='/settings/classes' >

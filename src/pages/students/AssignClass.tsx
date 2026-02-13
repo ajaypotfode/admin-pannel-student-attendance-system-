@@ -1,5 +1,5 @@
 import { PaginationComponent } from '@/components/Pagination'
-import { SelectClass } from '@/components/SelectClass'
+import SelectClass from '@/components/SelectClass'
 import { TableSkeleton } from '@/components/Spinner'
 import { Button } from '@/components/ui/button'
 // import { ComboboxDemo } from '@/components/SelectBox'

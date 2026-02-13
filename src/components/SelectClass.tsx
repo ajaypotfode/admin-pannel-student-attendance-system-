@@ -31,7 +31,7 @@ interface ComboBoxProps {
   // classId: string
 }
 
-export const SelectClass: React.FC<ComboBoxProps> = ({ classData, fetchData, getClassId, loading }) => {
+const SelectClass: React.FC<ComboBoxProps> = ({ classData, fetchData, getClassId, loading }) => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("");
   const { classSearch, debouncing, getClassSearchValue } = UseCommonData();
@@ -111,3 +111,5 @@ export const SelectClass: React.FC<ComboBoxProps> = ({ classData, fetchData, get
     </Popover >
   )
 }
+
+export default SelectClass

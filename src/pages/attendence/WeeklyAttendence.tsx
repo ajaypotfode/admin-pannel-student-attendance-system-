@@ -1,5 +1,5 @@
 
-import { SelectClass } from '@/components/SelectClass';
+import SelectClass from '@/components/SelectClass';
 import { TableSkeleton } from '@/components/Spinner';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';

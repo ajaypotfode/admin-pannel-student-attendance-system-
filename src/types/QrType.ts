@@ -11,6 +11,7 @@ export interface StudentId {
     email: string;
     contactNo: string;
     username: string;
+    image:string;
 }
 
 export interface ClassId {

@@ -4,7 +4,7 @@ import SignUpForm from "@/components/SignUpForm"
 import UseAuth from "@/hooks/useAuth"
 
 const Signup = () => {
-    const { getUserRegister, imageRef, getAdminTokenVerify, verifyAdminToken } = UseAuth()
+    const { getUserRegister, imageRef, getAdminTokenVerify, verifyAdminToken, handleImageUpload, loading } = UseAuth()
 
 
     return (
@@ -15,8 +15,16 @@ const Signup = () => {
                     :
                     (<div className="pt-5 px-5 h-screen flex">
                         <div className="bg-white/10 backdrop-blur-lg flex-1 rounded-t-3xl overflow-hidden flex flex-col justify-center items-center">
-                            <div className="overflow-hidden max-w-lg h-[90%] w-full">
-                                <SignUpForm onSubmit={getUserRegister} role={'admin'} imageRef={imageRef} token={verifyAdminToken} />
+                            <div className="max-w-lg h-[90vh]  w-full">
+                                <SignUpForm
+                                    imageLoading={loading['uploadImage']}
+                                    submitLoading={loading['signupUser']}
+                                    onSubmit={getUserRegister}
+                                    role={'admin'}
+                                    imageRef={imageRef}
+                                    token={verifyAdminToken}
+                                    handleImageUpload={handleImageUpload}
+                                />
                             </div>
                         </div>
                     </div>)

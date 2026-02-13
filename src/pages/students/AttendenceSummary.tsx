@@ -1,5 +1,5 @@
 import { PaginationComponent } from '@/components/Pagination';
-import { SelectClass } from '@/components/SelectClass';
+import SelectClass from '@/components/SelectClass';
 import { TableSkeleton } from '@/components/Spinner';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -55,8 +55,12 @@ const AttendenceSummary = () => {
                                                         {/* <TableCell className="font-medium">Session-{index + 1}</TableCell> */}
                                                         <TableCell>{attendence.date}</TableCell>
                                                         <TableCell>{attendence.time}</TableCell>
-                                                        <TableCell>{attendence.present ? 'yes' : 'no'}</TableCell>
-                                                        <TableCell className="text-center">{!attendence.present ? 'yes' : 'no'}</TableCell>
+                                                        <TableCell className={`${attendence.present ? 'text-green-700' : "text-red-700"}`} >
+                                                            {attendence.present ? 'yes' : 'no'}
+                                                        </TableCell>
+                                                        <TableCell className={`${!attendence.present ? 'text-green-700' : "text-red-700"} text-center`} >
+                                                            {!attendence.present ? 'yes' : 'no'}
+                                                        </TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>

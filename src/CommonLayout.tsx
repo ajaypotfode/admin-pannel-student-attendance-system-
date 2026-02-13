@@ -14,7 +14,7 @@ const CommonLayout = () => {
             }
             <div className="pt-5 px-5 h-screen flex">
                 <AppSidebar />
-                <div className="bg-white/10 backdrop-blur-lg flex-1 rounded-t-3xl overflow-hidden relative">
+                <div className="bg-white/10 backdrop-blur-lg flex-1 rounded-t-3xl overflow-y-auto relative">
                     <Outlet />
                 </div>
             </div>

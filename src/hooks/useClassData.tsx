@@ -68,12 +68,12 @@ const UseClassData = () => {
         dispatch(setClassData({ ...classData, [name]: value }))
     }
 
-    const getOrganozationOverview = () => {
-        dispatch(getOverviewData())
+    const getOrganozationOverview = async() => {
+        await dispatch(getOverviewData())
     }
 
-    const fetchClass = ({ search, pageNum }: { search?: string, pageNum?: number }) => {
-        dispatch(getClasses({ search, pageNum }))
+    const fetchClass = async({ search, pageNum }: { search?: string, pageNum?: number }) => {
+       await dispatch(getClasses({ search, pageNum }))
     }
 
 
@@ -82,8 +82,8 @@ const UseClassData = () => {
     }
 
 
-    const fetchActiveClass = ({ search }: { search?: string }) => {
-        dispatch(getActiveClasses(search))
+    const fetchActiveClass =async ({ search }: { search?: string }) => {
+        await dispatch(getActiveClasses(search))
     }
 
 

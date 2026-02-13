@@ -90,7 +90,7 @@ const Sidebar = () => {
                 >
                     {/* <span className="nav-icons"></span> */}
                     <Avatar className='border w-8 h-8'>
-                        <AvatarImage src="https://github.com/shadcn.png" className='border' alt="@shadcn" />
+                        <AvatarImage src={user?.image} className='border' alt="@shadcn" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <div className='flex-1 pl-2 text-start'>
